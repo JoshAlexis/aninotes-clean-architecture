@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pixiv {
+  id Int @id @default(autoincrement())
+  idPixiv Int @unique // Id of the user in the Pixiv Site
+  pixivName String? @default("In Japanese")
+  link String // URL of the Pixiv artist page
+  favorite Int // 1 least favorite - 3 most favorite
+  quality Int // 1 the lowest - 4 the highest
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  tags PixivTags[]
+  @@map("pixiv")
+}
+
+model Tag {
+  id Int @id @default(autoincrement())
+  name String
+  rated18 Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  pixiv PixivTags[]
+  @@map("tags")
+}
+
+model PixivTags {
+  id Int @id @default(autoincrement())
+  pixiv Pixiv @relation(fields: [pixivId], references: [id])
+  pixivId Int
+  tag Tag @relation(fields: [tagId], references: [id])
+  tagId Int
+
+  @@map("pixivTags")
+} 
