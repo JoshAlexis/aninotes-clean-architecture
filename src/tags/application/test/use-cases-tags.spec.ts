@@ -2,6 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { PrismaModule } from 'prisma/infrastructure/prisma.module'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { TagsTokens } from 'tags/di/tags.tokens'
+import { CreateTagDto } from 'tags/domain/dto/create-tag.dto'
+import { UpdateTagDto } from 'tags/domain/dto/update-tag.dto'
+import { TagsEntityMapper } from 'tags/infrastructure/tags-entity.mapper'
 import { TagsPrismaRepository } from 'tags/infrastructure/tags-prisma.respository'
 import { CreateTag } from '../create-tag.use-case'
 import { GetAllTags } from '../get-all-tags.use-case'
@@ -16,7 +19,7 @@ describe('Tag Use Cases', () => {
 
 	const prismaClient = new PrismaService()
 
-	const tag = {
+	const tag: CreateTagDto = {
 		name: 'test',
 		rated18: false
 	}
@@ -32,7 +35,8 @@ describe('Tag Use Cases', () => {
 				CreateTag,
 				UpdateTag,
 				GetAllTags,
-				GetTag
+				GetTag,
+				TagsEntityMapper
 			],
 			imports: [PrismaModule]
 		}).compile()
@@ -48,10 +52,7 @@ describe('Tag Use Cases', () => {
 	})
 
 	it('Should create a tag', async () => {
-		const data = await createTagUseCase.run({
-			name: 'test',
-			rated18: true
-		})
+		const data = await createTagUseCase.run(tag)
 
 		expect(data).toBeDefined()
 		expect(data).toHaveProperty('id')
@@ -62,7 +63,7 @@ describe('Tag Use Cases', () => {
 	})
 
 	it('Should update a tag', async () => {
-		const updatedTag = {
+		const updatedTag: UpdateTagDto = {
 			name: 'Updated Tag',
 			rated18: true
 		}

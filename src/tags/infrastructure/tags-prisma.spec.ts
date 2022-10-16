@@ -3,6 +3,7 @@ import { PrismaModule } from 'prisma/infrastructure/prisma.module'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { TagsTokens } from 'tags/di/tags.tokens'
 import { TagsRepository } from 'tags/domain/tags.repository'
+import { TagsEntityMapper } from './tags-entity.mapper'
 import { TagsPrismaRepository } from './tags-prisma.respository'
 
 describe('Tags Prisma Repository', () => {
@@ -16,7 +17,8 @@ describe('Tags Prisma Repository', () => {
 				{
 					provide: TagsTokens.TAGS_REPOSITORY,
 					useClass: TagsPrismaRepository
-				}
+				},
+				TagsEntityMapper
 			],
 			imports: [PrismaModule]
 		}).compile()

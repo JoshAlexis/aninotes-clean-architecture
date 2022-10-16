@@ -1,34 +1,47 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
+import { CreateTagDto } from 'tags/domain/dto/create-tag.dto'
+import { UpdateTagDto } from 'tags/domain/dto/update-tag.dto'
 import { TagEntity } from 'tags/domain/tag.entity'
 import { TagsRepository } from 'tags/domain/tags.repository'
+import { TagsEntityMapper } from './tags-entity.mapper'
 
 @Injectable()
-export class TagsPrismaRepository implements TagsRepository {
-	constructor(private readonly prisma: PrismaService) {}
+export class TagsPrismaRepository implements TagsRepository<TagEntity> {
+	constructor(private readonly prisma: PrismaService, private readonly mapper: TagsEntityMapper) {}
 
-	async getAllTags(): Promise<any[]> {
-		return this.prisma.tag.findMany()
+	async getAllTags(): Promise<TagEntity[]> {
+		const tags = await this.prisma.tag.findMany()
+
+		return this.mapper.toTagEntityList(tags)
 	}
 
-	async getTagById(id: number): Promise<any> {
-		return this.prisma.tag.findUnique({
+	async getTagById(id: number): Promise<TagEntity> {
+		const tag = await this.prisma.tag.findUnique({
 			where: {
 				id
 			}
 		})
+
+		if (!tag) {
+			throw new NotFoundException({ message: `Tag with id ${id} not found` })
+		}
+
+		return this.mapper.toTagEntity(tag)
 	}
 
-	async createTag(data: TagEntity): Promise<any> {
-		return this.prisma.tag.create({
+	async createTag(data: CreateTagDto): Promise<TagEntity> {
+		const createTag = await this.prisma.tag.create({
 			data: {
 				...data
 			}
 		})
+
+		return this.mapper.toTagEntity(createTag)
 	}
 
-	async updateTag(id: number, newData: TagEntity): Promise<any> {
-		return this.prisma.tag.update({
+	async updateTag(id: number, newData: UpdateTagDto): Promise<TagEntity> {
+		const tag = await this.prisma.tag.update({
 			data: {
 				...newData
 			},
@@ -36,5 +49,7 @@ export class TagsPrismaRepository implements TagsRepository {
 				id
 			}
 		})
+
+		return this.mapper.toTagEntity(tag)
 	}
 }
