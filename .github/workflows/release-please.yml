@@ -12,5 +12,4 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           release-type: node
-          command: manifest
           skip-github-release: true
