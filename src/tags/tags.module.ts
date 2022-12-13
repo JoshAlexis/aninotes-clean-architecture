@@ -13,7 +13,6 @@ import { GetTag } from './application/get-tag.use-case'
 
 @Module({
 	imports: [PrismaModule],
-	exports: [],
 	providers: [
 		{
 			provide: TagsTokens.TAGS_REPOSITORY,

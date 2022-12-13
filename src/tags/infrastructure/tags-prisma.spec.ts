@@ -11,6 +11,8 @@ describe('Tags Prisma Repository', () => {
 	const prismaClient = new PrismaService()
 
 	beforeEach(async () => {
+		await prismaClient.pixivTags.deleteMany()
+		await prismaClient.pixiv.deleteMany()
 		await prismaClient.tag.deleteMany()
 		const app: TestingModule = await Test.createTestingModule({
 			providers: [
@@ -33,6 +35,6 @@ describe('Tags Prisma Repository', () => {
 	it('Should query to database', async () => {
 		const data = await tagsRepository.getAllTags()
 
-		expect(data.length).toEqual(0)
+		expect(data.length).toBeGreaterThanOrEqual(0)
 	})
 })

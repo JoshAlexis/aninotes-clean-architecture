@@ -25,6 +25,8 @@ describe('Tag Use Cases', () => {
 	}
 
 	beforeEach(async () => {
+		// await prismaClient.pixivTags.deleteMany()
+		// await prismaClient.pixiv.deleteMany()
 		await prismaClient.tag.deleteMany()
 		const app: TestingModule = await Test.createTestingModule({
 			providers: [
@@ -48,6 +50,9 @@ describe('Tag Use Cases', () => {
 	})
 
 	afterAll(async () => {
+		await prismaClient.pixivTags.deleteMany()
+		await prismaClient.pixiv.deleteMany()
+		await prismaClient.tag.deleteMany()
 		await prismaClient.$disconnect()
 	})
 
