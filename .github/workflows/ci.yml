@@ -1,10 +1,10 @@
 name: CI Test (UseCases)
 
 on:
-  push:
-    pull_request:
-      branches:
-        - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   test-use-cases:
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
           - 5432:5432
 
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/aninotes
+      DATABASE_URL: postgresql://postgres:pass123@localhost:5432/aninotes
 
     steps:
       - uses: actions/checkout@v2
