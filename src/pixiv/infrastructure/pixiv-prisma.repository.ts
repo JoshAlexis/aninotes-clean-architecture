@@ -6,23 +6,11 @@ import { UpdatePixivDto } from 'pixiv/domain/dto/update-pixiv.dto'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { PixivEntityMapper } from 'pixiv/infrastructure/pixiv-entity.mapper'
 import { PixivTagEntity } from 'pixiv/domain/pixiv-tag.entity'
+import { calculateSkipRecords } from 'shared/infrastructure/utils/calculateSkipRecords'
 
 @Injectable()
 export class PixivPrismaRepository implements PixivRepository {
 	constructor(private readonly prismaService: PrismaService, private readonly mapper: PixivEntityMapper) {}
-
-	async updateTag(idTagRelation: number, idTag: number): Promise<boolean> {
-		const updatedTag = await this.prismaService.pixivTags.update({
-			where: {
-				id: idTagRelation
-			},
-			data: {
-				tagId: idTag
-			}
-		})
-
-		return !!updatedTag
-	}
 
 	async createPixiv(data: CreatePixivDto): Promise<PixivEntity> {
 		const createdPixiv = await this.prismaService.pixiv.create({
@@ -48,8 +36,11 @@ export class PixivPrismaRepository implements PixivRepository {
 		return !!deletedRecord
 	}
 
-	async getAll(): Promise<PixivEntity[]> {
-		const pixivItems = await this.prismaService.pixiv.findMany()
+	async getAll(page: number, size: number): Promise<PixivEntity[]> {
+		const pixivItems = await this.prismaService.pixiv.findMany({
+			skip: calculateSkipRecords(page, size),
+			take: size
+		})
 
 		return this.mapper.toEntityList(pixivItems)
 	}
