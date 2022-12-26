@@ -107,6 +107,6 @@ describe('Tag Use Cases', () => {
 		const response = await getAllTagsUseCase.run()
 
 		expect(response).toHaveProperty('length')
-		expect(response.length).toBeGreaterThan(3)
+		expect(response.length).toBeGreaterThanOrEqual(3)
 	})
 })

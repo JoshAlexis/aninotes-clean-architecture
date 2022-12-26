@@ -12,7 +12,8 @@ import { GetPixivList } from 'pixiv/application/get-pixiv-list.use-case'
 import { UpdatePixivDto } from 'pixiv/domain/dto/update-pixiv.dto'
 import { GetPixivByIdPixiv } from 'pixiv/application/get-pixiv-by-id-pixiv.use-case'
 import { GetPixivById } from 'pixiv/application/get-pixiv-by-id.use-case'
-import { Tag } from '@prisma/client'
+import { AssignTagToPixiv } from 'pixiv/application/assign-tag-pixiv'
+import { RemoveTagFromPixiv } from 'pixiv/application/remove-tag-pixiv'
 
 function generateRandomIdPixiv() {
 	return Math.floor(Math.random() * 2000)
@@ -24,10 +25,10 @@ describe('Pixiv Use Case', () => {
 	let getPixivList: GetPixivList
 	let getPixivById: GetPixivById
 	let getPixivByIdPixiv: GetPixivByIdPixiv
+	let assignTagToPixiv: AssignTagToPixiv
+	let removeTagFromPixiv: RemoveTagFromPixiv
 
 	let prismaService: PrismaService
-
-	let createdTag: Tag
 
 	const data: CreatePixivDto = {
 		idPixiv: 12312412,
@@ -59,7 +60,9 @@ describe('Pixiv Use Case', () => {
 				PixivEntityMapper,
 				GetPixivList,
 				GetPixivById,
-				GetPixivByIdPixiv
+				GetPixivByIdPixiv,
+				AssignTagToPixiv,
+				RemoveTagFromPixiv
 			],
 			imports: [PrismaModule]
 		}).compile()
@@ -69,6 +72,8 @@ describe('Pixiv Use Case', () => {
 		getPixivList = app.get<GetPixivList>(GetPixivList)
 		getPixivById = app.get<GetPixivById>(GetPixivById)
 		getPixivByIdPixiv = app.get<GetPixivByIdPixiv>(GetPixivByIdPixiv)
+		assignTagToPixiv = app.get<AssignTagToPixiv>(AssignTagToPixiv)
+		removeTagFromPixiv = app.get<RemoveTagFromPixiv>(RemoveTagFromPixiv)
 	})
 
 	afterEach(async () => {
@@ -79,7 +84,7 @@ describe('Pixiv Use Case', () => {
 	})
 
 	test('Should create pixiv item', async () => {
-		createdTag = await prismaService.tag.create({
+		const createdTag = await prismaService.tag.create({
 			data: {
 				...tag
 			}
@@ -102,7 +107,7 @@ describe('Pixiv Use Case', () => {
 	})
 
 	it('Should fetch a list of pixiv items', async () => {
-		createdTag = await prismaService.tag.create({
+		const createdTag = await prismaService.tag.create({
 			data: {
 				...tag
 			}
@@ -130,7 +135,7 @@ describe('Pixiv Use Case', () => {
 	})
 
 	it('Should update a pixiv item', async () => {
-		createdTag = await prismaService.tag.create({
+		const createdTag = await prismaService.tag.create({
 			data: {
 				...tag
 			}
@@ -169,7 +174,7 @@ describe('Pixiv Use Case', () => {
 	})
 
 	it('Should fetch an item by id', async () => {
-		createdTag = await prismaService.tag.create({
+		const createdTag = await prismaService.tag.create({
 			data: {
 				...tag
 			}
@@ -202,7 +207,7 @@ describe('Pixiv Use Case', () => {
 	})
 
 	it('Should fetch an item by idPixiv', async () => {
-		createdTag = await prismaService.tag.create({
+		const createdTag = await prismaService.tag.create({
 			data: {
 				...tag
 			}
@@ -232,5 +237,68 @@ describe('Pixiv Use Case', () => {
 		expect(result.link).toBe(pixivData.link)
 		expect(result.quality).toBe(pixivData.quality)
 		expect(result.favorite).toBe(pixivData.favorite)
+	})
+
+	it('Should assign a tag to Pixiv', async () => {
+		const createdTag = await prismaService.tag.create({
+			data: {
+				...tag
+			}
+		})
+
+		const pixivData: CreatePixivDto = {
+			favorite: 1,
+			quality: 3,
+			pixivName: 'In Japanese',
+			link: data.link,
+			idPixiv: generateRandomIdPixiv(),
+			tags: [
+				{
+					id: createdTag.id
+				}
+			]
+		}
+
+		const newTag = await prismaService.tag.create({
+			data: {
+				...tag
+			}
+		})
+
+		const [createdPixiv] = await createPixiv.run(pixivData)
+
+		const result = await assignTagToPixiv.run(createdPixiv.id, newTag.id)
+
+		expect(result).toBeDefined()
+		expect(result.id).toBeGreaterThan(0)
+		expect(result.idPixiv).toBe(createdPixiv.id)
+		expect(result.idTag).toBe(newTag.id)
+	})
+
+	it('Should remove a tag from Pixiv', async () => {
+		const createdTag = await prismaService.tag.create({
+			data: {
+				...tag
+			}
+		})
+
+		const pixivData: CreatePixivDto = {
+			favorite: 1,
+			quality: 3,
+			pixivName: 'In Japanese',
+			link: data.link,
+			idPixiv: generateRandomIdPixiv(),
+			tags: [
+				{
+					id: createdTag.id
+				}
+			]
+		}
+
+		const [, tagList] = await createPixiv.run(pixivData)
+
+		const result = await removeTagFromPixiv.run(tagList[0].id)
+
+		expect(result).toBe(true)
 	})
 })
