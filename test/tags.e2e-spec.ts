@@ -25,6 +25,7 @@ describe('Tags Endpoints (e2e)', () => {
 
 		app = moduleFixture.createNestApplication()
 		const prisma = app.get<PrismaService>(PrismaService)
+		await prisma.pixivTags.deleteMany()
 		await prisma.tag.deleteMany()
 	})
 
@@ -48,6 +49,13 @@ describe('Tags Endpoints (e2e)', () => {
 
 	describe('GetTagsController', () => {
 		it('GET /api/v1/tags', async () => {
+			const data: CreateTagDto = {
+				name: 'test get e2e',
+				rated18: true
+			}
+
+			await request(app.getHttpServer()).post('/tags').send(data).expect(201)
+
 			const result = await request(app.getHttpServer()).get('/tags').expect(200)
 
 			expect(result.body).toHaveProperty('length')
