@@ -6,6 +6,14 @@ import { UpdatePixiv } from 'pixiv/application/update-pixiv.use-case'
 import { GetPixivList } from 'pixiv/application/get-pixiv-list.use-case'
 import { GetPixivById } from 'pixiv/application/get-pixiv-by-id.use-case'
 import { GetPixivByIdPixiv } from 'pixiv/application/get-pixiv-by-id-pixiv.use-case'
+import { PixivEntityMapper } from 'pixiv/infrastructure/pixiv-entity.mapper'
+import { PostPixivController } from 'pixiv/presentation/post-pixiv-controller'
+import { PostPixivTagsController } from 'pixiv/presentation/post-pixiv-tags-controller'
+import { GetPixivController } from 'pixiv/presentation/get-pixiv-controller'
+import { DeletePixivTagsController } from 'pixiv/presentation/delete-pixiv-tags.controller'
+import { PutPixivController } from 'pixiv/presentation/put-pixiv-controller'
+import { AssignTagToPixiv } from 'pixiv/application/assign-tag-pixiv'
+import { RemoveTagFromPixiv } from 'pixiv/application/remove-tag-pixiv'
 
 @Module({
 	providers: [
@@ -17,7 +25,17 @@ import { GetPixivByIdPixiv } from 'pixiv/application/get-pixiv-by-id-pixiv.use-c
 		UpdatePixiv,
 		GetPixivList,
 		GetPixivById,
-		GetPixivByIdPixiv
+		GetPixivByIdPixiv,
+		AssignTagToPixiv,
+		RemoveTagFromPixiv,
+		PixivEntityMapper
+	],
+	controllers: [
+		PostPixivController,
+		PostPixivTagsController,
+		GetPixivController,
+		DeletePixivTagsController,
+		PutPixivController
 	]
 })
 export class PixivModule {}
