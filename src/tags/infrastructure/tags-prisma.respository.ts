@@ -16,7 +16,7 @@ export class TagsPrismaRepository implements TagsRepository<TagEntity> {
 		return this.mapper.toTagEntityList(tags)
 	}
 
-	async getTagById(id:string): Promise<TagEntity> {
+	async getTagById(id: string): Promise<TagEntity> {
 		const tag = await this.prisma.tag.findUnique({
 			where: {
 				id
