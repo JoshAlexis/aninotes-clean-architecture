@@ -16,7 +16,7 @@ export class TagsPrismaRepository implements TagsRepository<TagEntity> {
 		return this.mapper.toTagEntityList(tags)
 	}
 
-	async getTagById(id: number): Promise<TagEntity> {
+	async getTagById(id:string): Promise<TagEntity> {
 		const tag = await this.prisma.tag.findUnique({
 			where: {
 				id
@@ -40,7 +40,7 @@ export class TagsPrismaRepository implements TagsRepository<TagEntity> {
 		return this.mapper.toTagEntity(createTag)
 	}
 
-	async updateTag(id: number, newData: UpdateTagDto): Promise<TagEntity> {
+	async updateTag(id: string, newData: UpdateTagDto): Promise<TagEntity> {
 		const tag = await this.prisma.tag.update({
 			data: {
 				...newData

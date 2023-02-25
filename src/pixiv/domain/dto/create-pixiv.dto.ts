@@ -1,5 +1,5 @@
 import { PixivEntity } from 'pixiv/domain/pixiv.entity'
 
 export type CreatePixivDto = Omit<PixivEntity, 'id'> & {
-	tags: Array<{ id: number }>
+	tags: Array<{ id: string }>
 }

@@ -11,7 +11,7 @@ export class DeletePixivTagsController {
 
 	@UseInterceptors(BooleanResponseInterceptor)
 	@Delete('/tag/:idRelation')
-	removeTagFromPixiv(@Param('idRelation', ParseIntPipe) idRelation: number) {
+	removeTagFromPixiv(@Param('idRelation') idRelation: string) {
 		return this.removeTag.run(idRelation)
 	}
 }

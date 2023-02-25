@@ -1,5 +1,5 @@
 export class PixivEntity {
-	readonly id: number
+	readonly id: string
 
 	readonly pixivName: string
 

@@ -26,8 +26,8 @@ export class TagsEntityMapper {
 			tagEntity.id = tagItem.id
 			tagEntity.name = tagItem.name
 			tagEntity.rated18 = tagItem.rated18
-			tagEntity.createdAt = tagEntity.createdAt
-			tagEntity.updatedAt = tagEntity.updatedAt
+			tagEntity.createdAt = dayjs(tagItem.createdAt).format('YYYY-MM-DD HH:mm:ss')
+			tagEntity.updatedAt = dayjs(tagItem.updatedAt).format('YYYY-MM-DD HH:mm:ss')
 
 			tagEntityList.push(tagEntity)
 		}
