@@ -6,13 +6,13 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "cockroachdb"
   url      = env("DATABASE_URL")
 }
 
 model Pixiv {
-  id Int @id @default(autoincrement())
-  idPixiv Int @unique // Id of the user in the Pixiv Site
+  id String @id(map: "primary") @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  idPixiv Int @unique(map: "unique_id_pixiv") // Id of the user in the Pixiv Site
   pixivName String? @default("In Japanese")
   link String // URL of the Pixiv artist page
   favorite Int // 1 least favorite - 3 most favorite
@@ -25,7 +25,7 @@ model Pixiv {
 }
 
 model Tag {
-  id Int @id @default(autoincrement())
+  id String @id(map: "primary") @db.Uuid @default(dbgenerated("gen_random_uuid()"))
   name String
   rated18 Boolean @default(false)
   createdAt DateTime @default(now())
@@ -35,11 +35,11 @@ model Tag {
 }
 
 model PixivTags {
-  id Int @id @default(autoincrement())
-  pixiv Pixiv @relation(fields: [pixivId], references: [id], onDelete: NoAction)
-  pixivId Int
-  tag Tag @relation(fields: [tagId], references: [id], onDelete: NoAction)
-  tagId Int
+  id String @id(map: "primary") @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  pixiv Pixiv? @relation(fields: [pixivId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_pixiv_id_ref_Pixiv")
+  pixivId String? @db.Uuid
+  tag Tag? @relation(fields: [tagId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_tag_id_ref_Tag")
+  tagId String? @db.Uuid
 
   @@map("pixivTags")
 }
