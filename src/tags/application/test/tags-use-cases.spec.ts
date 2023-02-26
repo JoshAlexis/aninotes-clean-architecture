@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PrismaModule } from 'prisma/infrastructure/prisma.module'
+import { mockDeep, DeepMockProxy } from 'jest-mock-extended'
+import { v4 as uuid } from 'uuid'
+import { Tag } from '@prisma/client'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { TagsTokens } from 'tags/di/tags.tokens'
 import { CreateTagDto } from 'tags/domain/dto/create-tag.dto'
@@ -11,23 +13,72 @@ import { GetAllTags } from '../get-all-tags.use-case'
 import { GetTag } from '../get-tag.use-case'
 import { UpdateTag } from '../update-tag.use-case'
 
+export const createTagData: CreateTagDto = {
+	name: 'test',
+	rated18: false
+}
+
+export const createTagMockResponse: Tag = {
+	id: uuid(),
+	rated18: createTagData.rated18,
+	name: createTagData.name,
+	createdAt: new Date(),
+	updatedAt: new Date()
+}
+
+export const updateTagData: UpdateTagDto = {
+	name: 'Update Tag',
+	rated18: true
+}
+
+export const updateTagMockResponse: Tag = {
+	id: uuid(),
+	name: updateTagData.name as string,
+	rated18: updateTagData.rated18 as boolean,
+	createdAt: new Date(),
+	updatedAt: new Date()
+}
+
+export const fetchTagByIdMockResponse: Tag = {
+	id: uuid(),
+	rated18: createTagData.rated18,
+	name: createTagData.name,
+	createdAt: new Date(),
+	updatedAt: new Date()
+}
+
+export const fetchTagListMockResponse = [
+	{
+		id: uuid(),
+		rated18: createTagData.rated18,
+		name: createTagData.name,
+		createdAt: new Date(),
+		updatedAt: new Date()
+	},
+	{
+		id: uuid(),
+		rated18: createTagData.rated18,
+		name: createTagData.name,
+		createdAt: new Date(),
+		updatedAt: new Date()
+	},
+	{
+		id: uuid(),
+		rated18: createTagData.rated18,
+		name: createTagData.name,
+		createdAt: new Date(),
+		updatedAt: new Date()
+	}
+]
+
 describe('Tag Use Cases', () => {
 	let createTagUseCase: CreateTag
 	let updateTagUseCase: UpdateTag
 	let getAllTagsUseCase: GetAllTags
 	let getTagUseCase: GetTag
-
-	const prismaClient = new PrismaService()
-
-	const tag: CreateTagDto = {
-		name: 'test',
-		rated18: false
-	}
+	let prismaService: DeepMockProxy<PrismaService>
 
 	beforeEach(async () => {
-		// await prismaClient.pixivTags.deleteMany()
-		// await prismaClient.pixiv.deleteMany()
-		// await prismaClient.tag.deleteMany()
 		const app: TestingModule = await Test.createTestingModule({
 			providers: [
 				{
@@ -38,44 +89,41 @@ describe('Tag Use Cases', () => {
 				UpdateTag,
 				GetAllTags,
 				GetTag,
-				TagsEntityMapper
-			],
-			imports: [PrismaModule]
-		}).compile()
+				TagsEntityMapper,
+				PrismaService
+			]
+		})
+			.overrideProvider(PrismaService)
+			.useValue(mockDeep<PrismaService>())
+			.compile()
 
 		createTagUseCase = app.get<CreateTag>(CreateTag)
 		updateTagUseCase = app.get<UpdateTag>(UpdateTag)
 		getAllTagsUseCase = app.get<GetAllTags>(GetAllTags)
 		getTagUseCase = app.get<GetTag>(GetTag)
-	})
-
-	afterAll(async () => {
-		await prismaClient.pixivTags.deleteMany()
-		await prismaClient.pixiv.deleteMany()
-		await prismaClient.tag.deleteMany()
-		await prismaClient.$disconnect()
+		prismaService = app.get(PrismaService)
 	})
 
 	it('Should create a tag', async () => {
-		const data = await createTagUseCase.run(tag)
+		prismaService.tag.create.mockResolvedValue(createTagMockResponse)
 
-		expect(data).toBeDefined()
-		expect(data).toHaveProperty('id')
-		expect(data).toHaveProperty('name')
-		expect(data).toHaveProperty('rated18')
-		expect(data).toHaveProperty('createdAt')
-		expect(data).toHaveProperty('updatedAt')
+		const response = await createTagUseCase.run(createTagData)
+
+		expect(response).toBeDefined()
+		expect(response).toHaveProperty('id')
+		expect(response).toHaveProperty('name')
+		expect(response).toHaveProperty('rated18')
+		expect(response).toHaveProperty('createdAt')
+		expect(response).toHaveProperty('updatedAt')
+
+		expect(response.name).toEqual(createTagData.name)
+		expect(response.rated18).toEqual(createTagData.rated18)
 	})
 
 	it('Should update a tag', async () => {
-		const updatedTag: UpdateTagDto = {
-			name: 'Updated Tag',
-			rated18: true
-		}
+		prismaService.tag.update.mockResolvedValue(updateTagMockResponse)
 
-		const result = await createTagUseCase.run(tag)
-
-		const response = await updateTagUseCase.run(result.id, updatedTag)
+		const response = await updateTagUseCase.run(updateTagMockResponse.id, updateTagData)
 
 		expect(response).toHaveProperty('id')
 		expect(response).toHaveProperty('name')
@@ -83,14 +131,14 @@ describe('Tag Use Cases', () => {
 		expect(response).toHaveProperty('createdAt')
 		expect(response).toHaveProperty('updatedAt')
 
-		expect(response.name).toEqual(updatedTag.name)
-		expect(response.rated18).toEqual(updatedTag.rated18)
+		expect(response.name).toEqual(updateTagData.name)
+		expect(response.rated18).toEqual(updateTagData.rated18)
 	})
 
 	it('Should fetch one tag', async () => {
-		const result = await createTagUseCase.run(tag)
+		prismaService.tag.findUnique.mockResolvedValue(fetchTagByIdMockResponse)
 
-		const response = await getTagUseCase.run(result.id)
+		const response = await getTagUseCase.run(fetchTagByIdMockResponse.id)
 
 		expect(response).toHaveProperty('id')
 		expect(response).toHaveProperty('name')
@@ -100,9 +148,7 @@ describe('Tag Use Cases', () => {
 	})
 
 	it('Should fetch all tags', async () => {
-		await createTagUseCase.run(tag)
-		await createTagUseCase.run(tag)
-		await createTagUseCase.run(tag)
+		prismaService.tag.findMany.mockResolvedValue(fetchTagListMockResponse)
 
 		const response = await getAllTagsUseCase.run()
 
