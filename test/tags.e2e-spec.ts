@@ -1,42 +1,40 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import request from 'supertest'
+import { DeepMockProxy, mockDeep } from 'jest-mock-extended'
 import { TagsModule } from 'tags/tags.module'
-import { CreateTagDto } from 'tags/domain/dto/create-tag.dto'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
-import { UpdateTagDto } from 'tags/domain/dto/update-tag.dto'
+import {
+	createTagData,
+	createTagMockResponse,
+	fetchTagByIdMockResponse,
+	fetchTagListMockResponse,
+	updateTagData,
+	updateTagMockResponse
+} from 'tags/application/test/tags-use-cases.spec'
 
 describe('Tags Endpoints (e2e)', () => {
 	let app: INestApplication
+	let prismaService: DeepMockProxy<PrismaService>
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [TagsModule]
-		}).compile()
+			imports: [TagsModule],
+			providers: [PrismaService]
+		})
+			.overrideProvider(PrismaService)
+			.useValue(mockDeep<PrismaService>())
+			.compile()
 
 		app = moduleFixture.createNestApplication()
+		prismaService = app.get(PrismaService)
 		await app.init()
-	})
-
-	beforeAll(async () => {
-		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [TagsModule]
-		}).compile()
-
-		app = moduleFixture.createNestApplication()
-		const prisma = app.get<PrismaService>(PrismaService)
-		await prisma.pixivTags.deleteMany()
-		await prisma.tag.deleteMany()
 	})
 
 	describe('PostTagController', () => {
 		it('POST /api/v1/tags', async () => {
-			const data: CreateTagDto = {
-				name: 'test e2e',
-				rated18: true
-			}
-
-			const result = await request(app.getHttpServer()).post('/tags').send(data).expect(201)
+			prismaService.tag.create.mockResolvedValue(createTagMockResponse)
+			const result = await request(app.getHttpServer()).post('/tags').send(createTagData).expect(201)
 
 			expect(result.body).toBeDefined()
 			expect(result.body).toHaveProperty('id')
@@ -49,13 +47,7 @@ describe('Tags Endpoints (e2e)', () => {
 
 	describe('GetTagsController', () => {
 		it('GET /api/v1/tags', async () => {
-			const data: CreateTagDto = {
-				name: 'test get e2e',
-				rated18: true
-			}
-
-			await request(app.getHttpServer()).post('/tags').send(data).expect(201)
-
+			prismaService.tag.findMany.mockResolvedValue(fetchTagListMockResponse)
 			const result = await request(app.getHttpServer()).get('/tags').expect(200)
 
 			expect(result.body).toHaveProperty('length')
@@ -63,9 +55,8 @@ describe('Tags Endpoints (e2e)', () => {
 		})
 
 		it('GET /api/v1/tags/:id', async () => {
-			const { body } = await request(app.getHttpServer()).get('/tags').expect(200)
-
-			const result = await request(app.getHttpServer()).get(`/tags/${body[0].id}`).expect(200)
+			prismaService.tag.findUnique.mockResolvedValue(fetchTagByIdMockResponse)
+			const result = await request(app.getHttpServer()).get(`/tags/${fetchTagByIdMockResponse.id}`).expect(200)
 
 			expect(result.body).toHaveProperty('id')
 			expect(result.body).toHaveProperty('name')
@@ -77,22 +68,16 @@ describe('Tags Endpoints (e2e)', () => {
 
 	describe('PutTagsController', () => {
 		it('PUT /api/v1/tags/:id', async () => {
-			const updatedTag: UpdateTagDto = {
-				name: 'test e2e',
-				rated18: true
-			}
-
-			const { body } = await request(app.getHttpServer()).get('/tags').expect(200)
-
-			const result = await request(app.getHttpServer()).put(`/tags/${body[0].id}`).expect(200)
+			prismaService.tag.update.mockResolvedValue(updateTagMockResponse)
+			const result = await request(app.getHttpServer()).put(`/tags/${updateTagMockResponse.id}`).expect(200)
 
 			expect(result.body).toBeDefined()
 			expect(result.body).toHaveProperty('id')
 			expect(result.body).toHaveProperty('name')
-			expect(result.body.name).toBe(updatedTag.name)
+			expect(result.body.name).toBe(updateTagData.name)
 
 			expect(result.body).toHaveProperty('rated18')
-			expect(result.body.rated18).toBe(updatedTag.rated18)
+			expect(result.body.rated18).toBe(updateTagData.rated18)
 
 			expect(result.body).toHaveProperty('createdAt')
 			expect(result.body).toHaveProperty('updatedAt')

@@ -7,7 +7,7 @@ import { UpdatePixivDto } from 'pixiv/domain/dto/update-pixiv.dto'
 export class UpdatePixiv {
 	constructor(@Inject(PixivTokens.PIXIV_REPOSITORY) private readonly repository: PixivRepository) {}
 
-	run(id: number, data: UpdatePixivDto) {
+	run(id: string, data: UpdatePixivDto) {
 		return this.repository.updatePixiv(id, data)
 	}
 }

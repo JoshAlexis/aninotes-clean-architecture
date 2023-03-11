@@ -6,6 +6,6 @@ import { PixivTagEntity } from 'pixiv/domain/pixiv-tag.entity'
 
 export interface PixivRepository extends BaseRepository<PixivEntity, PixivTagEntity> {
 	createPixiv(data: CreatePixivDto): Promise<PixivEntity>
-	updatePixiv(id: number, data: UpdatePixivDto): Promise<PixivEntity>
+	updatePixiv(id: string, data: UpdatePixivDto): Promise<PixivEntity>
 	getByIdPixiv(idPixiv: number): Promise<PixivEntity>
 }

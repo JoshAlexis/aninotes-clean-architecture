@@ -6,7 +6,7 @@ import { TagsRepository } from 'tags/domain/tags.repository'
 
 @Injectable()
 export class CreateTag {
-	constructor(@Inject(TagsTokens.TAGS_REPOSITORY) private readonly repository: TagsRepository) {}
+	constructor(@Inject(TagsTokens.TAGS_REPOSITORY) private readonly repository: TagsRepository<TagEntity>) {}
 
 	run(data: CreateTagDto): Promise<TagEntity> {
 		return this.repository.createTag(data)

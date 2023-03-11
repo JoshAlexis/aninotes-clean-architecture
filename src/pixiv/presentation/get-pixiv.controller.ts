@@ -20,7 +20,7 @@ export class GetPixivController {
 	}
 
 	@Get('/:id')
-	async getById(@Param('id', ParseIntPipe) id: number) {
+	async getById(@Param('id') id: string) {
 		return this.getPixivById.run(id)
 	}
 

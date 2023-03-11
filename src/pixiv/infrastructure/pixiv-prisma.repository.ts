@@ -26,7 +26,7 @@ export class PixivPrismaRepository implements PixivRepository {
 		return this.mapper.toEntity(createdPixiv)
 	}
 
-	async deleteTag(idRecordRelation: number): Promise<boolean> {
+	async deleteTag(idRecordRelation: string): Promise<boolean> {
 		const deletedRecord = await this.prismaService.pixivTags.delete({
 			where: {
 				id: idRecordRelation
@@ -45,7 +45,7 @@ export class PixivPrismaRepository implements PixivRepository {
 		return this.mapper.toEntityList(pixivItems)
 	}
 
-	async getById(id: number): Promise<PixivEntity> {
+	async getById(id: string): Promise<PixivEntity> {
 		const pixiv = await this.prismaService.pixiv.findUnique({
 			where: {
 				id
@@ -73,7 +73,7 @@ export class PixivPrismaRepository implements PixivRepository {
 		return this.mapper.toEntity(item)
 	}
 
-	async updatePixiv(id: number, data: UpdatePixivDto): Promise<PixivEntity> {
+	async updatePixiv(id: string, data: UpdatePixivDto): Promise<PixivEntity> {
 		const updatedPixiv = await this.prismaService.pixiv.update({
 			where: {
 				id
@@ -86,7 +86,7 @@ export class PixivPrismaRepository implements PixivRepository {
 		return this.mapper.toEntity(updatedPixiv)
 	}
 
-	async assignTag(idEntity: number, idTag: number): Promise<PixivTagEntity> {
+	async assignTag(idEntity: string, idTag: string): Promise<PixivTagEntity> {
 		const createdTag = await this.prismaService.pixivTags.create({
 			data: {
 				pixivId: idEntity,

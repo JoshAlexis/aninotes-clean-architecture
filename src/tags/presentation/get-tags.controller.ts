@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common'
+import { Controller, Get, Param } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { GetAllTags } from 'tags/application/get-all-tags.use-case'
 import { GetTag } from 'tags/application/get-tag.use-case'
@@ -17,7 +17,7 @@ export class GetTagsController {
 	}
 
 	@Get('/:id')
-	findById(@Param('id', ParseIntPipe) id: number) {
+	findById(@Param('id') id: string) {
 		return this.getTag.run(id)
 	}
 }

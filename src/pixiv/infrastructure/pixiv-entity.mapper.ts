@@ -31,8 +31,8 @@ export class PixivEntityMapper {
 	toPixivTagEntity(data: PixivTags): PixivTagEntity {
 		return {
 			id: data.id,
-			idPixiv: data.pixivId,
-			idTag: data.tagId
+			idPixiv: data.pixivId ?? '',
+			idTag: data.tagId ?? ''
 		}
 	}
 }

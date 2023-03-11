@@ -1,5 +1,5 @@
 export class TagEntity {
-	id: number
+	id: string
 	name: string
 	rated18: boolean
 	createdAt: string

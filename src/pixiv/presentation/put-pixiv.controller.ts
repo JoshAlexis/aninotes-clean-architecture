@@ -10,7 +10,7 @@ export class PutPixivController {
 	constructor(private readonly updatePixiv: UpdatePixiv) {}
 
 	@Put('/:id')
-	async update(@Param('id', ParseIntPipe) id: number, @Body() data: UpdatePixivDto) {
+	async update(@Param('id') id: string, @Body() data: UpdatePixivDto) {
 		return this.updatePixiv.run(id, data)
 	}
 }

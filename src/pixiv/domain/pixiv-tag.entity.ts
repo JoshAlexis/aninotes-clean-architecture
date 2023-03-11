@@ -1,7 +1,7 @@
 export class PixivTagEntity {
-	readonly id: number
+	readonly id: string
 
-	readonly idPixiv: number
+	readonly idPixiv: string
 
-	readonly idTag: number
+	readonly idTag: string
 }

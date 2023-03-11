@@ -4,9 +4,9 @@ import { TagEntity } from 'tags/domain/tag.entity'
 import { TagsRepository } from 'tags/domain/tags.repository'
 
 export class GetTag {
-	constructor(@Inject(TagsTokens.TAGS_REPOSITORY) private readonly repository: TagsRepository) {}
+	constructor(@Inject(TagsTokens.TAGS_REPOSITORY) private readonly repository: TagsRepository<TagEntity>) {}
 
-	run(id: number): Promise<TagEntity> {
+	run(id: string): Promise<TagEntity> {
 		return this.repository.getTagById(id)
 	}
 }

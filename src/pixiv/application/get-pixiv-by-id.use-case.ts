@@ -6,7 +6,7 @@ import { PixivRepository } from 'pixiv/domain/pixiv.repository'
 export class GetPixivById {
 	constructor(@Inject(PixivTokens.PIXIV_REPOSITORY) private readonly repository: PixivRepository) {}
 
-	async run(id: number) {
+	async run(id: string) {
 		return this.repository.getById(id)
 	}
 }

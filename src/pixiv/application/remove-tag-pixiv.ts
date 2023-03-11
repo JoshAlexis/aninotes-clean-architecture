@@ -6,7 +6,7 @@ import { PixivRepository } from 'pixiv/domain/pixiv.repository'
 export class RemoveTagFromPixiv {
 	constructor(@Inject(PixivTokens.PIXIV_REPOSITORY) private readonly repository: PixivRepository) {}
 
-	async run(idRelationship: number) {
+	async run(idRelationship: string) {
 		return this.repository.deleteTag(idRelationship)
 	}
 }
