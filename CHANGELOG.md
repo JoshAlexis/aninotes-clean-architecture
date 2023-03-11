@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.1.0...v1.2.0) (2023-03-11)
+
+
+### Features
+
+* change pk to string ([b3fb3e8](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/b3fb3e853d063ec397a42de68b5a0693876449a2))
+* change pk to string ([6e13f8f](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/6e13f8fc8143e4eae5b490cdebc9e4f75f39dc67))
+* **schema:** change pk to uuid ([37a8055](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/37a8055a2502b726f9dfb4cba903b7b76352e890))
+
 ## [1.1.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.0.0...v1.1.0) (2023-01-28)
 
 
