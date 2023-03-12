@@ -7,6 +7,10 @@ export class PixivEntity {
 
 	readonly link: string
 
+	readonly example: string
+
+	readonly hasR18Content: boolean
+
 	readonly favorite: number
 
 	readonly quality: number

@@ -26,6 +26,8 @@ export const createPixivData: CreatePixivDto = {
 	link: 'https://www.pixiv.net/en/users/38183633',
 	quality: 4,
 	favorite: 3,
+	hasR18Content: true,
+	example: 'https://www.pixiv.net/en/artworks/93435536',
 	tags: []
 }
 
@@ -34,6 +36,8 @@ export const updatePixivData: UpdatePixivDto = {
 	quality: 2,
 	favorite: 2,
 	idPixiv: generateRandomIdPixiv(),
+	hasR18Content: true,
+	example: 'https://www.pixiv.net/en/artworks/93435536',
 	link: createPixivData.link
 }
 
@@ -58,6 +62,8 @@ export const fetchItemPixivMockResponse: Pixiv = {
 	favorite: 3,
 	link: createPixivData.link,
 	idPixiv: generateRandomIdPixiv(),
+	hasR18Content: true,
+	example: 'https://www.pixiv.net/en/artworks/93435536',
 	createdAt: new Date(),
 	updateAt: new Date()
 }
@@ -69,6 +75,8 @@ export const fetchByIdPixivMockResponse: Pixiv = {
 	pixivName: 'In Japanese',
 	link: createPixivData.link,
 	idPixiv: generateRandomIdPixiv(),
+	hasR18Content: true,
+	example: 'https://www.pixiv.net/en/artworks/93435536',
 	createdAt: new Date(),
 	updateAt: new Date()
 }
