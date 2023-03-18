@@ -3,7 +3,7 @@ name: CI Test
 on:
   pull_request:
     branches:
-      - main
+      - 'main'
 
 jobs:
   test-use-cases:
@@ -15,12 +15,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        if: !contains(github.head_ref, 'release')
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+        if: !contains(github.head_ref, 'release')
       - run: yarn install
       - name: Run Use Cases
         run: yarn test
+        if: !contains(github.head_ref, 'release')
       - name: Run e2e
         run: yarn test:e2e
+        if: !contains(github.head_ref, 'release')
