@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.2.0...v1.3.0) (2023-03-18)
+
+
+### Features
+
+* add new fields for example and +18 content ([099137d](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/099137daa7fb0778ee837ec563eedbfc551a1cc9))
+* **ci:** add condition to ignore release branches ([00290f1](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/00290f1c138df60b86b822c6d5bdab9bde3cb7c3))
+* **ci:** remove branches on release action ([d129f51](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/d129f51442e0579539dfea09dd16839d20f8a7f8))
+* new pixiv fields ([#57](https://github.com/JoshAlexis/aninotes-clean-architecture/issues/57)) ([9c33551](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/9c33551c60b68fc05c0c37182c5ed2bd5b7dc2a9))
+
+
+### Bug Fixes
+
+* **ci:** add brackets on condition ([e857e87](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/e857e87c5683928abc158c9bebafac7c6e1fefaf))
+
 ## [1.2.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.1.0...v1.2.0) (2023-03-11)
 
 
