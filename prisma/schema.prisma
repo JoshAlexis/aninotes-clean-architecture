@@ -17,6 +17,8 @@ model Pixiv {
   link String // URL of the Pixiv artist page
   favorite Int // 1 least favorite - 3 most favorite
   quality Int // 1 the lowest - 4 the highest
+	example String
+	hasR18Content Boolean @default(false)
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
 

@@ -19,7 +19,9 @@ export class PixivPrismaRepository implements PixivRepository {
 				pixivName: data.pixivName,
 				quality: data.quality,
 				favorite: data.favorite,
-				link: data.link
+				link: data.link,
+				hasR18Content: data.hasR18Content,
+				example: data.example
 			}
 		})
 

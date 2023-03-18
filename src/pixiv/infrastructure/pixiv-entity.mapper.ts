@@ -12,7 +12,9 @@ export class PixivEntityMapper {
 			idPixiv: data.idPixiv,
 			link: data.link,
 			quality: data.quality,
-			favorite: data.favorite
+			favorite: data.favorite,
+			example: data.example,
+			hasR18Content: data.hasR18Content
 		}
 	}
 
@@ -24,7 +26,9 @@ export class PixivEntityMapper {
 			idPixiv: data.idPixiv,
 			link: data.link,
 			quality: data.quality,
-			favorite: data.favorite
+			favorite: data.favorite,
+			example: data.example,
+			hasR18Content: data.hasR18Content
 		}))
 	}
 
