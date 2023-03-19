@@ -32,29 +32,59 @@ describe('Tags Schemas', () => {
 		await app.init()
 	})
 
-	it('Should fail when empty object is sent', async () => {
-		const result = await request(app.getHttpServer()).post('/tags').send({})
+	describe('Create Tag', () => {
+		it('Should fail when empty object is sent', async () => {
+			const result = await request(app.getHttpServer()).post('/tags').send({})
 
-		expect(result.status).toBe(400)
+			expect(result.status).toBe(400)
+		})
+
+		it('Should fail when field name is empty', async () => {
+			const createTag: CreateTagDto = {
+				name: '',
+				rated18: false
+			}
+			const result = await request(app.getHttpServer()).post('/tags').send(createTag)
+
+			expect(result.status).toBe(400)
+		})
+
+		it('Should fail when field rated18 is not a boolean', async () => {
+			const createTag: CreateTagDto = {
+				name: 'test',
+				rated18: '' as any
+			}
+			const result = await request(app.getHttpServer()).post('/tags').send(createTag)
+
+			expect(result.status).toBe(400)
+		})
 	})
 
-	it('Should fail when field name is empty', async () => {
-		const createTag: CreateTagDto = {
-			name: '',
-			rated18: false
-		}
-		const result = await request(app.getHttpServer()).post('/tags').send(createTag)
+	describe('Update Tag', () => {
+		it('Should fail when empty object is sent', async () => {
+			const result = await request(app.getHttpServer()).put('/tags/1').send({})
 
-		expect(result.status).toBe(400)
-	})
+			expect(result.status).toBe(400)
+		})
 
-	it('Should fail when field rated18 is not a boolean', async () => {
-		const createTag: CreateTagDto = {
-			name: 'test',
-			rated18: '' as any
-		}
-		const result = await request(app.getHttpServer()).post('/tags').send(createTag)
+		it('Should fail when field name is empty', async () => {
+			const createTag: CreateTagDto = {
+				name: '',
+				rated18: false
+			}
+			const result = await request(app.getHttpServer()).put('/tags/1').send(createTag)
 
-		expect(result.status).toBe(400)
+			expect(result.status).toBe(400)
+		})
+
+		it('Should fail when field rated18 is not a boolean', async () => {
+			const createTag: CreateTagDto = {
+				name: 'test',
+				rated18: '' as any
+			}
+			const result = await request(app.getHttpServer()).put('/tags/1').send(createTag)
+
+			expect(result.status).toBe(400)
+		})
 	})
 })
