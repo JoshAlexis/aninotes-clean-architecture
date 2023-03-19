@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.3.0...v1.4.0) (2023-03-19)
+
+
+### Features
+
+* add validation schemas for tags and pixiv ([7b2b73c](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/7b2b73c18cc9afeeb7728a08f569a26ca030020c))
+* validation schemas ([#60](https://github.com/JoshAlexis/aninotes-clean-architecture/issues/60)) ([19df19a](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/19df19ae309c2aa00cced305373dc0ca1fec837b))
+
 ## [1.3.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.2.0...v1.3.0) (2023-03-18)
 
 
