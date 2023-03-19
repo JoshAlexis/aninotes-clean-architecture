@@ -1,5 +1,5 @@
 import request from 'supertest'
-import { INestApplication } from '@nestjs/common'
+import { INestApplication, ValidationPipe } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { v4 as uuid } from 'uuid'
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended'
@@ -30,6 +30,16 @@ describe('Pixiv Endpoints (e2e)', () => {
 			.compile()
 
 		app = moduleFixture.createNestApplication()
+		app.useGlobalPipes(
+			new ValidationPipe({
+				whitelist: true,
+				forbidNonWhitelisted: true,
+				forbidUnknownValues: true,
+				validationError: {
+					value: false
+				}
+			})
+		)
 		prismaService = app.get(PrismaService)
 		await app.init()
 	})

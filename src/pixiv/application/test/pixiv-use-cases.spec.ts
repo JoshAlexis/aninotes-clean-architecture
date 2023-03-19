@@ -27,7 +27,7 @@ export const createPixivData: CreatePixivDto = {
 	quality: 4,
 	favorite: 3,
 	hasR18Content: true,
-	example: 'https://www.pixiv.net/en/artworks/93435536',
+	example: 'https://i.pximg.net/img-original/img/2022/07/09/03/58/07/99541125_p0.png',
 	tags: []
 }
 
@@ -37,7 +37,7 @@ export const updatePixivData: UpdatePixivDto = {
 	favorite: 2,
 	idPixiv: generateRandomIdPixiv(),
 	hasR18Content: true,
-	example: 'https://www.pixiv.net/en/artworks/93435536',
+	example: createPixivData.example,
 	link: createPixivData.link
 }
 
@@ -108,7 +108,7 @@ export const assignTagToPixivMockResponse: PixivTags = {
 	tagId: uuid()
 }
 
-describe('Pixiv Use Case', () => {
+describe('Pixiv Use Cases', () => {
 	let createPixiv: CreatePixiv
 	let updatePixiv: UpdatePixiv
 	let getPixivList: GetPixivList

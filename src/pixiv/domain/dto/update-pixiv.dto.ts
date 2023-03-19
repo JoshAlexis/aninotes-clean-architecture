@@ -1,3 +1,4 @@
+import { OmitType } from '@nestjs/swagger'
 import { CreatePixivDto } from 'pixiv/domain/dto/create-pixiv.dto'
 
-export type UpdatePixivDto = Omit<CreatePixivDto, 'tags'>
+export class UpdatePixivDto extends OmitType(CreatePixivDto, ['tags'] as const) {}

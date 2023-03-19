@@ -10,8 +10,8 @@ export class CreateTagDto {
 	})
 	name: string
 
-	@IsNotEmpty()
 	@IsBoolean()
+	@IsNotEmpty()
 	@ApiProperty({
 		description: 'If the tag is related to +18 content',
 		type: Boolean
