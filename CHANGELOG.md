@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.1](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.4.0...v1.4.1) (2023-03-26)
+
+
+### Bug Fixes
+
+* delete target branch for dependabot ([c47bf1d](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/c47bf1d1f71790f49ab066b703b9f65da49de65d))
+* delete target branch for dependabot ([#65](https://github.com/JoshAlexis/aninotes-clean-architecture/issues/65)) ([5f5c914](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/5f5c914de50a319535133f05b7a2c80695530d28))
+
 ## [1.4.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.3.0...v1.4.0) (2023-03-19)
 
 
