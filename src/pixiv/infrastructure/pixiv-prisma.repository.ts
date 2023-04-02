@@ -7,6 +7,8 @@ import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { PixivEntityMapper } from 'pixiv/infrastructure/pixiv-entity.mapper'
 import { PixivTagEntity } from 'pixiv/domain/pixiv-tag.entity'
 import { calculateSkipRecords } from 'shared/infrastructure/utils/calculateSkipRecords'
+import { PixivWithTags } from 'pixiv/infrastructure/pixiv-with-tags.type'
+import { PixivTagsDto } from 'pixiv/domain/dto/pixiv-tags.dto'
 
 @Injectable()
 export class PixivPrismaRepository implements PixivRepository {
@@ -62,7 +64,7 @@ export class PixivPrismaRepository implements PixivRepository {
 	}
 
 	async getByIdPixiv(idPixiv: number): Promise<PixivEntity> {
-		const item = await this.prismaService.pixiv.findFirst({
+		const item = await this.prismaService.pixiv.findUnique({
 			where: {
 				idPixiv
 			}
@@ -97,5 +99,27 @@ export class PixivPrismaRepository implements PixivRepository {
 		})
 
 		return this.mapper.toPixivTagEntity(createdTag)
+	}
+
+	async getPixivTags(id: string): Promise<ReadonlyArray<PixivTagsDto>> {
+		const pixivTagList = (await this.prismaService.pixiv.findFirst({
+			where: {
+				id
+			},
+			select: {
+				tags: {
+					select: {
+						id: true,
+						tag: {
+							select: {
+								name: true
+							}
+						}
+					}
+				}
+			}
+		})) as PixivWithTags
+
+		return this.mapper.toPixivWithTags(pixivTagList)
 	}
 }
