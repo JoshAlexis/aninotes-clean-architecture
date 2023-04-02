@@ -13,6 +13,8 @@ import { fetchByIdPixivMockResponse } from 'pixiv/application/test/mocks/fetch-b
 import { fetchPixivListMockResponse } from 'pixiv/application/test/mocks/fetch-pixiv-list-response.mock'
 import { createPixivData } from 'pixiv/application/test/create-pixiv.data'
 import { updatePixivData } from 'pixiv/application/test/update-pixiv.data'
+import { fetchPixivWithTagsDataMockResponse } from 'pixiv/application/test/mocks'
+import { Pixiv, Prisma } from '@prisma/client'
 
 describe('Pixiv Endpoints (e2e)', () => {
 	let app: INestApplication
@@ -44,14 +46,19 @@ describe('Pixiv Endpoints (e2e)', () => {
 
 	describe('PostPixivController', () => {
 		it('POST /api/v1/pixiv', async () => {
+			const tag = uuid()
+			createPixivData.tags.push({
+				id: tag
+			})
 			prismaService.pixiv.create.mockResolvedValue(createPixivMockResponse)
 			prismaService.pixivTags.create.mockResolvedValue({
 				id: uuid(),
 				pixivId: createPixivMockResponse.id,
 				tagId: uuid()
 			})
-			const pixivResult = await request(app.getHttpServer()).post('/pixiv').send(createPixivData).expect(201)
+			const pixivResult = await request(app.getHttpServer()).post('/pixiv').send(createPixivData)
 
+			expect(pixivResult.status).toBe(201)
 			expect(pixivResult.body).toBeDefined()
 			expect(pixivResult.body).toHaveProperty('length')
 			expect(pixivResult.body[0]).toHaveProperty('id')
@@ -69,6 +76,10 @@ describe('Pixiv Endpoints (e2e)', () => {
 	// Consider define query params as optionals
 	describe('GetPixivController', () => {
 		it('GET /api/v1/pixiv', async () => {
+			prismaService.pixiv.findFirst.mockResolvedValue(
+				fetchPixivWithTagsDataMockResponse as unknown as Prisma.Prisma__PixivClient<Pixiv>
+			)
+
 			prismaService.pixiv.findMany.mockResolvedValue(fetchPixivListMockResponse)
 			const result = await request(app.getHttpServer())
 				.get('/pixiv')
@@ -82,9 +93,14 @@ describe('Pixiv Endpoints (e2e)', () => {
 
 			expect(result.body).toBeDefined()
 			expect(result.body.length).toBeGreaterThanOrEqual(1)
+			expect(result.body[0]).toHaveProperty('tags')
+			expect(result.body[0].tags).toHaveLength(1)
 		})
 
 		it('GET /api/v1/pixiv/:id', async () => {
+			prismaService.pixiv.findFirst.mockResolvedValue(
+				fetchPixivWithTagsDataMockResponse as unknown as Prisma.Prisma__PixivClient<Pixiv>
+			)
 			prismaService.pixiv.findUnique.mockResolvedValue(fetchItemPixivMockResponse)
 			const result = await request(app.getHttpServer()).get(`/pixiv/${fetchItemPixivMockResponse.id}`)
 
@@ -96,19 +112,26 @@ describe('Pixiv Endpoints (e2e)', () => {
 			expect(result.body.link).toBe(fetchItemPixivMockResponse.link)
 			expect(result.body.quality).toBe(fetchItemPixivMockResponse.quality)
 			expect(result.body.favorite).toBe(fetchItemPixivMockResponse.favorite)
+			expect(result.body).toHaveProperty('tags')
+			expect(result.body.tags).toHaveLength(1)
 		})
 
 		it('GET /api/v1/pixiv/id-pixiv/:idPixiv', async () => {
-			prismaService.pixiv.findFirst.mockResolvedValue(fetchByIdPixivMockResponse)
+			prismaService.pixiv.findFirst.mockResolvedValue(
+				fetchPixivWithTagsDataMockResponse as unknown as Prisma.Prisma__PixivClient<Pixiv>
+			)
+			prismaService.pixiv.findUnique.mockResolvedValue(fetchByIdPixivMockResponse)
 			const result = await request(app.getHttpServer()).get(`/pixiv/id-pixiv/${fetchByIdPixivMockResponse.idPixiv}`)
 
-			prismaService.pixiv.findFirst.mockResolvedValue(fetchByIdPixivMockResponse)
+			// prismaService.pixiv.findFirst.mockResolvedValue(fetchByIdPixivMockResponse)
 
 			expect(result.body).toBeDefined()
 			expect(result.body.idPixiv).toBe(fetchByIdPixivMockResponse.idPixiv)
 			expect(result.body.link).toBe(fetchByIdPixivMockResponse.link)
 			expect(result.body.quality).toBe(fetchByIdPixivMockResponse.quality)
 			expect(result.body.favorite).toBe(fetchByIdPixivMockResponse.favorite)
+			expect(result.body).toHaveProperty('tags')
+			expect(result.body.tags).toHaveLength(1)
 		})
 	})
 
