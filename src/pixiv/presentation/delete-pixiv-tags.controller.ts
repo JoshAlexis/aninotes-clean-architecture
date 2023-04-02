@@ -1,4 +1,4 @@
-import { RemoveTagFromPixiv } from 'pixiv/application/remove-tag-pixiv'
+import { RemoveTagFromPixiv } from 'pixiv/application/remove-tag-pixiv.use-case'
 import { Controller, Delete, Param, ParseIntPipe, UseInterceptors } from '@nestjs/common'
 import { BooleanResponseInterceptor } from 'pixiv/presentation/interceptors/boolean-response.interceptor'
 
