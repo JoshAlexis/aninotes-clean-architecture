@@ -12,8 +12,8 @@ import { PostPixivTagsController } from 'pixiv/presentation/post-pixiv-tags.cont
 import { GetPixivController } from 'pixiv/presentation/get-pixiv.controller'
 import { DeletePixivTagsController } from 'pixiv/presentation/delete-pixiv-tags.controller'
 import { PutPixivController } from 'pixiv/presentation/put-pixiv.controller'
-import { AssignTagToPixiv } from 'pixiv/application/assign-tag-pixiv'
-import { RemoveTagFromPixiv } from 'pixiv/application/remove-tag-pixiv'
+import { AssignTagToPixiv } from 'pixiv/application/assign-tag-pixiv.use-case'
+import { RemoveTagFromPixiv } from 'pixiv/application/remove-tag-pixiv.use-case'
 
 @Module({
 	providers: [
