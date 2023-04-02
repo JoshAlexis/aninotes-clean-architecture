@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.4.1...v1.5.0) (2023-04-02)
+
+
+### Features
+
+* **pixiv:** add tags data in pixiv ([073b207](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/073b2072d0f198bef1d051a7fa3f91bb28ce8ec8))
+* **pixiv:** add tags data in response ([804e951](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/804e951800a8111423d1d4fbf6867ede18cecf6b))
+
 ## [1.4.1](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.4.0...v1.4.1) (2023-03-26)
 
 
