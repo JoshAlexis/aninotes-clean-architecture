@@ -1,4 +1,4 @@
-import { Controller, Param, ParseIntPipe, Post } from '@nestjs/common'
+import { Controller, Param, Post } from '@nestjs/common'
 import { AssignTagToPixiv } from 'pixiv/application/assign-tag-pixiv.use-case'
 
 @Controller({

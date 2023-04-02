@@ -6,7 +6,7 @@ import { PixivModule } from 'pixiv/pixiv.module'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { TagsModule } from 'tags/tags.module'
 import { CreatePixivDto } from 'pixiv/domain/dto/create-pixiv.dto'
-import { createPixivData } from "pixiv/application/test/create-pixiv.data";
+import { createPixivData } from 'pixiv/application/test/create-pixiv.data'
 
 describe('Pixiv Schemas', () => {
 	let app: INestApplication
