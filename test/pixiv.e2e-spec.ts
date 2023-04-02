@@ -6,15 +6,13 @@ import { DeepMockProxy, mockDeep } from 'jest-mock-extended'
 import { PixivModule } from 'pixiv/pixiv.module'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { TagsModule } from 'tags/tags.module'
-import {
-	createPixivData,
-	createPixivMockResponse,
-	fetchByIdPixivMockResponse,
-	fetchItemPixivMockResponse,
-	fetchPixivListMockResponse,
-	updatePixivData,
-	updatePixivMockResponse
-} from 'pixiv/application/test/pixiv-use-cases.spec'
+import { createPixivMockResponse } from 'pixiv/application/test/mocks/create-pixiv-response.mock'
+import { updatePixivMockResponse } from 'pixiv/application/test/mocks/update-pixiv-response.mock'
+import { fetchItemPixivMockResponse } from 'pixiv/application/test/mocks/fetch-item-pixiv-response.mock'
+import { fetchByIdPixivMockResponse } from 'pixiv/application/test/mocks/fetch-by-id-pixiv-response.mock'
+import { fetchPixivListMockResponse } from 'pixiv/application/test/mocks/fetch-pixiv-list-response.mock'
+import { createPixivData } from 'pixiv/application/test/create-pixiv.data'
+import { updatePixivData } from 'pixiv/application/test/update-pixiv.data'
 
 describe('Pixiv Endpoints (e2e)', () => {
 	let app: INestApplication
