@@ -9,7 +9,7 @@ FROM node:16.20-alpine3.17 as builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN yarn build && yarn prisma generate
+RUN yarn prisma generate && yarn build
 
 FROM node:16.20-alpine3.17 as prod-deps
 WORKDIR /app
