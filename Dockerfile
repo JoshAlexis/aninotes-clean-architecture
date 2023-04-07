@@ -14,9 +14,11 @@ RUN yarn prisma generate && yarn build
 FROM node:16.20-alpine3.17 as prod-deps
 WORKDIR /app
 ENV NODE_ENV production
+COPY prisma ./
 COPY package.json .
 COPY yarn.lock .
-RUN yarn install --production --ignore-scripts --frozen-lockfile
+RUN yarn install --production --ignore-scripts --frozen-lockfile \
+    && yarn prisma generate
 
 FROM node:16.20-alpine3.17 as production
 
