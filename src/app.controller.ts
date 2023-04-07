@@ -8,7 +8,7 @@ import { AppService } from './app.service'
 export class AppController {
 	constructor(private readonly appService: AppService) {}
 
-	@Get()
+	@Get('/healthz')
 	getHello(@Res() response: Response) {
 		return this.appService.getHello(response)
 	}
