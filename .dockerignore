@@ -1,0 +1,32 @@
+# Github and git
+.github
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Lint
+.husky
+.editorconfig
+.eslintrc.js
+.prettierrc
+.commitlintrc.json
+
+# compiled output
+/dist
+/node_modules
+test
+
+# Logs
+*.log
+
+# IDEs and editors
+/.idea
+
+# Env
+.env
+
+# Release
+README.md
+CHANGELOG.md
