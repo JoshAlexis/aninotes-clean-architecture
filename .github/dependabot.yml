@@ -1,15 +1,17 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
+    target-branch: "dependencies"
     directory: "/"
     schedule:
       interval: "weekly"
     labels:
       - "actions"
-  - package-ecosystem: "npm"
+  - package-ecosystem: "yarn"
+    target-branch: "dependencies"
     directory: "/"
     schedule:
       interval: "weekly"
     labels:
-      - "npm"
+      - "yarn"
       - "dependencies"
