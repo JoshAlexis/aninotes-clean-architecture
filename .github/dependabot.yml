@@ -7,7 +7,7 @@ updates:
       interval: "weekly"
     labels:
       - "actions"
-  - package-ecosystem: "yarn"
+  - package-ecosystem: "npm"
     target-branch: "dependencies"
     directory: "/"
     schedule:
