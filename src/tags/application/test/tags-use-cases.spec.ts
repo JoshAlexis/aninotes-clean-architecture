@@ -12,6 +12,7 @@ import { CreateTag } from '../create-tag.use-case'
 import { GetAllTags } from '../get-all-tags.use-case'
 import { GetTag } from '../get-tag.use-case'
 import { UpdateTag } from '../update-tag.use-case'
+import { NotFoundException } from '@nestjs/common'
 
 export const createTagData: CreateTagDto = {
 	name: 'test',
@@ -135,16 +136,24 @@ describe('Tag Use Cases', () => {
 		expect(response.rated18).toEqual(updateTagData.rated18)
 	})
 
-	it('Should fetch one tag', async () => {
-		prismaService.tag.findUnique.mockResolvedValue(fetchTagByIdMockResponse)
+	describe('GetTags', () => {
+		it('Should fetch one tag', async () => {
+			prismaService.tag.findUnique.mockResolvedValue(fetchTagByIdMockResponse)
 
-		const response = await getTagUseCase.run(fetchTagByIdMockResponse.id)
+			const response = await getTagUseCase.run(fetchTagByIdMockResponse.id)
 
-		expect(response).toHaveProperty('id')
-		expect(response).toHaveProperty('name')
-		expect(response).toHaveProperty('rated18')
-		expect(response).toHaveProperty('createdAt')
-		expect(response).toHaveProperty('updatedAt')
+			expect(response).toHaveProperty('id')
+			expect(response).toHaveProperty('name')
+			expect(response).toHaveProperty('rated18')
+			expect(response).toHaveProperty('createdAt')
+			expect(response).toHaveProperty('updatedAt')
+		})
+
+		it('Should fail when an item is not found', async () => {
+			prismaService.tag.findUnique.mockResolvedValue(null)
+
+			await expect(getTagUseCase.run(fetchTagByIdMockResponse.id)).rejects.toBeInstanceOf(NotFoundException)
+		})
 	})
 
 	it('Should fetch all tags', async () => {

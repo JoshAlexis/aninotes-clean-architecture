@@ -26,6 +26,7 @@ import {
 } from 'pixiv/application/test/mocks'
 import { createPixivData } from 'pixiv/application/test/create-pixiv.data'
 import { updatePixivData } from 'pixiv/application/test/update-pixiv.data'
+import { NotFoundException } from '@nestjs/common'
 
 describe('Pixiv Use Cases', () => {
 	let createPixiv: CreatePixiv
@@ -124,51 +125,67 @@ describe('Pixiv Use Cases', () => {
 		expect(result.favorite).toBe(updatePixivData.favorite)
 	})
 
-	it('Should fetch an item by id', async () => {
-		prismaService.pixiv.findFirst.mockResolvedValue(
-			fetchPixivWithTagsDataMockResponse as unknown as Prisma.Prisma__PixivClient<Pixiv>
-		)
-		prismaService.pixiv.findUnique.mockResolvedValue(fetchItemPixivMockResponse)
+	describe('GetPixivById', () => {
+		it('Should fetch an item by id', async () => {
+			prismaService.pixiv.findFirst.mockResolvedValue(
+				fetchPixivWithTagsDataMockResponse as unknown as Prisma.Prisma__PixivClient<Pixiv>
+			)
+			prismaService.pixiv.findUnique.mockResolvedValue(fetchItemPixivMockResponse)
 
-		const [result, tagsResult] = await getPixivById.run(fetchItemPixivMockResponse.id)
+			const [result, tagsResult] = await getPixivById.run(fetchItemPixivMockResponse.id)
 
-		expect(result).toBeDefined()
-		expect(result.id).toBe(fetchItemPixivMockResponse.id)
-		expect(result.idPixiv).toBe(fetchItemPixivMockResponse.idPixiv)
-		expect(result.pixivName).toBe(fetchItemPixivMockResponse.pixivName)
-		expect(result.link).toBe(fetchItemPixivMockResponse.link)
-		expect(result.quality).toBe(fetchItemPixivMockResponse.quality)
-		expect(result.favorite).toBe(fetchItemPixivMockResponse.favorite)
+			expect(result).toBeDefined()
+			expect(result.id).toBe(fetchItemPixivMockResponse.id)
+			expect(result.idPixiv).toBe(fetchItemPixivMockResponse.idPixiv)
+			expect(result.pixivName).toBe(fetchItemPixivMockResponse.pixivName)
+			expect(result.link).toBe(fetchItemPixivMockResponse.link)
+			expect(result.quality).toBe(fetchItemPixivMockResponse.quality)
+			expect(result.favorite).toBe(fetchItemPixivMockResponse.favorite)
 
-		expect(tagsResult).toHaveLength(1)
-		expect(tagsResult[0]).toHaveProperty('idPixivTag')
-		expect(tagsResult[0]).toHaveProperty('name')
-		expect(tagsResult[0].name).toBe(fetchPixivWithTagsDataMockResponse.tags[0].tag?.name)
-		expect(tagsResult[0].idPixivTag).toBe(fetchPixivWithTagsDataMockResponse.tags[0].id)
+			expect(tagsResult).toHaveLength(1)
+			expect(tagsResult[0]).toHaveProperty('idPixivTag')
+			expect(tagsResult[0]).toHaveProperty('name')
+			expect(tagsResult[0].name).toBe(fetchPixivWithTagsDataMockResponse.tags[0].tag?.name)
+			expect(tagsResult[0].idPixivTag).toBe(fetchPixivWithTagsDataMockResponse.tags[0].id)
+		})
+
+		it('Should fail when an item is not found', async () => {
+			prismaService.pixiv.findUnique.mockResolvedValue(null)
+
+			await expect(getPixivById.run(fetchItemPixivMockResponse.id)).rejects.toBeInstanceOf(NotFoundException)
+		})
 	})
 
-	it('Should fetch an item by idPixiv', async () => {
-		prismaService.pixiv.findFirst.mockResolvedValue(
-			fetchPixivWithTagsDataMockResponse as unknown as Prisma.Prisma__PixivClient<Pixiv>
-		)
+	describe('GetPixivByIdPixiv', () => {
+		it('Should fetch an item by idPixiv', async () => {
+			prismaService.pixiv.findFirst.mockResolvedValue(
+				fetchPixivWithTagsDataMockResponse as unknown as Prisma.Prisma__PixivClient<Pixiv>
+			)
 
-		prismaService.pixiv.findUnique.mockResolvedValue(fetchByIdPixivMockResponse)
+			prismaService.pixiv.findUnique.mockResolvedValue(fetchByIdPixivMockResponse)
 
-		const [result, tagsResult] = await getPixivByIdPixiv.run(fetchByIdPixivMockResponse.idPixiv)
+			const [result, tagsResult] = await getPixivByIdPixiv.run(fetchByIdPixivMockResponse.idPixiv)
 
-		expect(result).toBeDefined()
-		expect(result.id).toBe(fetchByIdPixivMockResponse.id)
-		expect(result.idPixiv).toBe(fetchByIdPixivMockResponse.idPixiv)
-		expect(result.pixivName).toBe(fetchByIdPixivMockResponse.pixivName)
-		expect(result.link).toBe(fetchByIdPixivMockResponse.link)
-		expect(result.quality).toBe(fetchByIdPixivMockResponse.quality)
-		expect(result.favorite).toBe(fetchByIdPixivMockResponse.favorite)
+			expect(result).toBeDefined()
+			expect(result.id).toBe(fetchByIdPixivMockResponse.id)
+			expect(result.idPixiv).toBe(fetchByIdPixivMockResponse.idPixiv)
+			expect(result.pixivName).toBe(fetchByIdPixivMockResponse.pixivName)
+			expect(result.link).toBe(fetchByIdPixivMockResponse.link)
+			expect(result.quality).toBe(fetchByIdPixivMockResponse.quality)
+			expect(result.favorite).toBe(fetchByIdPixivMockResponse.favorite)
 
-		expect(tagsResult).toHaveLength(1)
-		expect(tagsResult[0]).toHaveProperty('idPixivTag')
-		expect(tagsResult[0]).toHaveProperty('name')
-		expect(tagsResult[0].name).toBe(fetchPixivWithTagsDataMockResponse.tags[0].tag?.name)
-		expect(tagsResult[0].idPixivTag).toBe(fetchPixivWithTagsDataMockResponse.tags[0].id)
+			expect(tagsResult).toHaveLength(1)
+			expect(tagsResult[0]).toHaveProperty('idPixivTag')
+			expect(tagsResult[0]).toHaveProperty('name')
+			expect(tagsResult[0].name).toBe(fetchPixivWithTagsDataMockResponse.tags[0].tag?.name)
+			expect(tagsResult[0].idPixivTag).toBe(fetchPixivWithTagsDataMockResponse.tags[0].id)
+		})
+
+		it('Should fail when an item is not found', async () => {
+			prismaService.pixiv.findUnique.mockResolvedValue(null)
+
+			await expect(getPixivByIdPixiv.run(fetchByIdPixivMockResponse.idPixiv)).rejects.toBeInstanceOf(NotFoundException)
+		})
 	})
 
 	it('Should assign a tag to Pixiv', async () => {
