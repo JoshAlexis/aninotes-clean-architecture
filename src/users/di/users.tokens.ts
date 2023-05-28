@@ -1,3 +1,3 @@
 export const UsersTokens = {
-	USER_REPOSITORY: Symbol.for('UserRepository')
+	USER_REPOSITORY: 'USER_REPOSITORY'
 }

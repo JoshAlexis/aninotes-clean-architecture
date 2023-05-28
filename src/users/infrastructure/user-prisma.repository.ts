@@ -4,6 +4,7 @@ import { UserDto } from 'users/domain/dto/user.dto'
 import { CreateUserDto } from 'users/domain/dto/create-user.dto'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { UsersInfraMapper } from 'users/infrastructure/users-infra.mapper'
+import { UpdateUserDto } from 'users/domain/dto'
 
 @Injectable()
 export class UserPrismaRepository implements UsersRepository {
@@ -11,13 +12,34 @@ export class UserPrismaRepository implements UsersRepository {
 	async addUser(dto: CreateUserDto): Promise<UserDto> {
 		const createdUser = await this.prismaService.user.create({
 			data: {
-				userName: dto.userName,
-				email: dto.email,
-				password: dto.password
+				...dto
 			}
 		})
 
 		return this.mapper.toUserDto(createdUser)
+	}
+
+	async updateUser(id: string, dto: UpdateUserDto): Promise<UserDto> {
+		const foundUser = await this.prismaService.user.findUnique({
+			where: {
+				id
+			}
+		})
+
+		if (!foundUser) {
+			throw new NotFoundException('User not found')
+		}
+
+		const updatedUser = await this.prismaService.user.update({
+			where: {
+				id
+			},
+			data: {
+				...dto
+			}
+		})
+
+		return this.mapper.toUserDto(updatedUser)
 	}
 
 	async findUserByEmail(email: string): Promise<UserDto> {

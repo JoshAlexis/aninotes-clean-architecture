@@ -2,61 +2,61 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-	provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-	provider = "cockroachdb"
-	url      = env("DATABASE_URL")
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
 }
 
 model Pixiv {
-	id            String   @id(map: "primary") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-	idPixiv       Int      @unique(map: "unique_id_pixiv") // Id of the user in the Pixiv Site
-	pixivName     String?  @default("In Japanese")
-	link          String // URL of the Pixiv artist page
-	favorite      Int // 1 least favorite - 3 most favorite
-	quality       Int // 1 the lowest - 4 the highest
-	example       String
-	hasR18Content Boolean  @default(false)
-	createdAt     DateTime @default(now())
-	updateAt      DateTime @updatedAt
+  id            String   @id(map: "primary") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  idPixiv       Int      @unique(map: "unique_id_pixiv") // Id of the user in the Pixiv Site
+  pixivName     String?  @default("In Japanese")
+  link          String // URL of the Pixiv artist page
+  favorite      Int // 1 least favorite - 3 most favorite
+  quality       Int // 1 the lowest - 4 the highest
+  example       String
+  hasR18Content Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
 
-	tags PixivTags[]
+  tags PixivTags[]
 
-	@@map("pixiv")
+  @@map("pixiv")
 }
 
 model Tag {
-	id        String      @id(map: "primary") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-	name      String
-	rated18   Boolean     @default(false)
-	createdAt DateTime    @default(now())
-	updatedAt DateTime    @updatedAt
-	pixiv     PixivTags[]
+  id        String      @id(map: "primary") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  rated18   Boolean     @default(false)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  pixiv     PixivTags[]
 
-	@@map("tags")
+  @@map("tags")
 }
 
 model PixivTags {
-	id      String  @id(map: "primary") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-	pixiv   Pixiv?  @relation(fields: [pixivId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_pixiv_id_ref_Pixiv")
-	pixivId String? @db.Uuid
-	tag     Tag?    @relation(fields: [tagId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_tag_id_ref_Tag")
-	tagId   String? @db.Uuid
+  id      String  @id(map: "primary") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  pixiv   Pixiv?  @relation(fields: [pixivId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_pixiv_id_ref_Pixiv")
+  pixivId String? @db.Uuid
+  tag     Tag?    @relation(fields: [tagId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_tag_id_ref_Tag")
+  tagId   String? @db.Uuid
 
-	@@map("pixivTags")
+  @@map("pixivTags")
 }
 
 model User {
-	id        String   @id(map: "primary") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-	createdAt DateTime @default(now())
-	updatedAt DateTime @updatedAt
+  id        String   @id(map: "primary") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-	userName     String?
-	email        String  @unique
-	password     String
-	refreshToken String?
+  userName     String?
+  email        String  @unique
+  password     String
+  refreshToken String?
 
-	@@map("users")
+  @@map("users")
 }
