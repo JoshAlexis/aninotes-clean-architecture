@@ -12,6 +12,7 @@ import {
 	updateTagData,
 	updateTagMockResponse
 } from 'tags/application/test/tags-use-cases.spec'
+import { PrismaModule } from 'prisma/infrastructure/prisma.module'
 
 describe('Tags Endpoints (e2e)', () => {
 	let app: INestApplication
@@ -19,7 +20,7 @@ describe('Tags Endpoints (e2e)', () => {
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [TagsModule],
+			imports: [PrismaModule, TagsModule],
 			providers: [PrismaService]
 		})
 			.overrideProvider(PrismaService)
