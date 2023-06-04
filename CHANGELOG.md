@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.6.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.5.0...v1.6.0) (2023-06-04)
+
+
+### Features
+
+* create users module ([7a3e33f](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/7a3e33f1e6fee4cf177bd8a124d600b1674d6ee8))
+* create users module ([b3360ca](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/b3360ca0138348500f7867e0cf4245a9fac156b1))
+
+
+### Bug Fixes
+
+* change response status code ([5845917](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/5845917d45395af0ae9e06055afe19b7e3b4463e))
+
 ## [1.5.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.4.1...v1.5.0) (2023-04-02)
 
 
