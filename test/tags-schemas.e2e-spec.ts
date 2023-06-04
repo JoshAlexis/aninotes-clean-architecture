@@ -5,13 +5,14 @@ import { mockDeep } from 'jest-mock-extended'
 import { TagsModule } from 'tags/tags.module'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { CreateTagDto } from 'tags/domain/dto/create-tag.dto'
+import { PrismaModule } from 'prisma/infrastructure/prisma.module'
 
 describe('Tags Schemas', () => {
 	let app: INestApplication
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [TagsModule],
+			imports: [TagsModule, PrismaModule],
 			providers: [PrismaService]
 		})
 			.overrideProvider(PrismaService)

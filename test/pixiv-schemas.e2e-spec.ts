@@ -7,13 +7,14 @@ import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { TagsModule } from 'tags/tags.module'
 import { CreatePixivDto } from 'pixiv/domain/dto/create-pixiv.dto'
 import { createPixivData } from 'pixiv/application/test/create-pixiv.data'
+import { PrismaModule } from 'prisma/infrastructure/prisma.module'
 
 describe('Pixiv Schemas', () => {
 	let app: INestApplication
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [PixivModule, TagsModule],
+			imports: [PixivModule, TagsModule, PrismaModule],
 			providers: [PrismaService]
 		})
 			.overrideProvider(PrismaService)

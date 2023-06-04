@@ -15,6 +15,7 @@ import { createPixivData } from 'pixiv/application/test/create-pixiv.data'
 import { updatePixivData } from 'pixiv/application/test/update-pixiv.data'
 import { fetchPixivWithTagsDataMockResponse } from 'pixiv/application/test/mocks'
 import { Pixiv, Prisma } from '@prisma/client'
+import { PrismaModule } from 'prisma/infrastructure/prisma.module'
 
 describe('Pixiv Endpoints (e2e)', () => {
 	let app: INestApplication
@@ -22,7 +23,7 @@ describe('Pixiv Endpoints (e2e)', () => {
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [PixivModule, TagsModule],
+			imports: [PrismaModule, PixivModule, TagsModule],
 			providers: [PrismaService]
 		})
 			.overrideProvider(PrismaService)
