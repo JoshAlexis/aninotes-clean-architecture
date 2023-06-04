@@ -20,7 +20,7 @@ import { UpdateUser } from 'users/application/update-user.use-case'
 		{
 			provide: UsersTokens.USER_REPOSITORY,
 			useClass: UserPrismaRepository
-		},
+	},
 		UsersInfraMapper
 	]
 })
