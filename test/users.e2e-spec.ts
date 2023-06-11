@@ -111,7 +111,10 @@ describe('User Endpoints (e2e)', () => {
 				userName: updateUserResult.userName as string
 			}
 
-			const result = await request(app.getHttpServer()).put(`/users/${createUserResult.id}`).send(updateUserDto).expect(200)
+			const result = await request(app.getHttpServer())
+				.put(`/users/${createUserResult.id}`)
+				.send(updateUserDto)
+				.expect(200)
 
 			expect(result.body).toBeDefined()
 			expect(result.body.id).toBe(updateUserResult.id)
