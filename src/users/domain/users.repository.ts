@@ -1,10 +1,8 @@
-import { CreateUserDto } from 'users/domain/dto/create-user.dto'
-import { UserDto } from 'users/domain/dto/user.dto'
-import { UpdateUserDto } from 'users/domain/dto/update-user.dto'
+import { UserEntity } from 'users/domain/user.entity'
 
 export interface UsersRepository {
-	addUser(dto: CreateUserDto): Promise<UserDto>
-	updateUser(id: string, dto: UpdateUserDto): Promise<UserDto>
-	findUserByEmail(email: string): Promise<UserDto>
-	fetchAll(): Promise<ReadonlyArray<UserDto>>
+	addUser(data: UserEntity): Promise<UserEntity>
+	updateUser(id: string, user: UserEntity): Promise<UserEntity>
+	findUserByEmail(email: string): Promise<UserEntity>
+	fetchAll(): Promise<ReadonlyArray<UserEntity>>
 }
