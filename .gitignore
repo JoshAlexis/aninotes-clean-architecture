@@ -36,3 +36,13 @@ lerna-debug.log*
 
 # Env
 .env
+
+# Yarn
+.yarn/*
+.yarn/cache
+!.yarn/install-state.gz
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

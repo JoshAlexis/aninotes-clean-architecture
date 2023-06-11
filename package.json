@@ -3,7 +3,6 @@
 	"version": "1.6.0",
 	"description": "",
 	"author": "JoshAlexis",
-	"private": false,
 	"license": "UNLICENSED",
 	"scripts": {
 		"prebuild": "rimraf dist",
@@ -89,5 +88,6 @@
 		],
 		"coverageDirectory": "../coverage",
 		"testEnvironment": "node"
-	}
+	},
+	"packageManager": "yarn@3.6.0"
 }
