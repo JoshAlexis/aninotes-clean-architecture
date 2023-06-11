@@ -7,8 +7,9 @@ import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { createUserResult } from 'users/application/test/create-user-result.utils'
 import { UsersModule } from 'users/users.module'
 import { PrismaModule } from 'prisma/infrastructure/prisma.module'
-import { CreateUserDto, UpdateUserDto } from 'users/domain/dto'
 import { updateUserResult } from 'users/application/test/update-user-result.utils'
+import { CreateUserDto } from 'users/application/dto/create-user.dto'
+import { UpdateUserDto } from 'users/application/dto/update-user.dto'
 
 function formatDate(date: Date) {
 	return dayjs(date).format('YYYY-MM-DD HH:mm:ss')

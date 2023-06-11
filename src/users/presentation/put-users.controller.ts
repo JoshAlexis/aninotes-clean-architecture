@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Put } from '@nestjs/common'
 import { UpdateUser } from 'users/application/update-user.use-case'
-import { UpdateUserDto } from 'users/domain/dto'
+import { UpdateUserDto } from 'users/application/dto'
 
 @Controller({
 	version: 'v1',

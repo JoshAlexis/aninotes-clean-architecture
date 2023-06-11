@@ -1,8 +1,8 @@
 import { CreateUser } from 'users/application/create-user.use-case'
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
-import { CreateUserDto } from 'users/domain/dto'
 import { GetUserByEmailDto } from 'users/application/dto/get-user-by-email.dto'
 import { GetUserByEmail } from 'users/application/get-user-by-email.use-case'
+import { CreateUserDto } from 'users/application/dto'
 
 @Controller({
 	version: '1',
