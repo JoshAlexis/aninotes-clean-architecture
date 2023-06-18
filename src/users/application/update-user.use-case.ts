@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { UsersTokens } from 'users/di/users.tokens'
 import { UsersRepository } from 'users/domain/users.repository'
-import { UpdateUserDto, UsersDtoEntityMapper } from 'users/application/dto'
+import { UpdateUserInputDto, UsersDtoEntityMapper } from 'users/application/dto'
 
 @Injectable()
 export class UpdateUser {
@@ -10,7 +10,7 @@ export class UpdateUser {
 		private readonly mapper: UsersDtoEntityMapper
 	) {}
 
-	run(id: string, data: UpdateUserDto) {
+	run(id: string, data: UpdateUserInputDto) {
 		return this.repository.updateUser(id, this.mapper.toEntity(data))
 	}
 }
