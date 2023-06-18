@@ -1,7 +1,7 @@
 import { PixivEntity } from 'pixiv/domain/pixiv.entity'
-import { PixivTagsDto } from 'pixiv/domain/dto/pixiv-tags.dto'
+import { PixivTagsItemEntity } from 'pixiv/domain/pixiv-tags-item.entity'
 
 export interface PixivEntityWithTagsDto {
 	pixiv: PixivEntity
-	tags: ReadonlyArray<PixivTagsDto>
+	tags: ReadonlyArray<PixivTagsItemEntity>
 }

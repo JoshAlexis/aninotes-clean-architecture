@@ -15,4 +15,4 @@ export const PixivWithTagsDefinition = Prisma.validator<Prisma.PixivArgs>()({
 	}
 })
 
-export type PixivWithTags = Prisma.PixivGetPayload<typeof PixivWithTagsDefinition>
+export type PixivWithTagsDto = Prisma.PixivGetPayload<typeof PixivWithTagsDefinition>

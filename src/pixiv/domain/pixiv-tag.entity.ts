@@ -4,4 +4,10 @@ export class PixivTagEntity {
 	readonly idPixiv: string
 
 	readonly idTag: string
+
+	constructor(id: string, idPixiv: string, idTag: string) {
+		this.id = id
+		this.idPixiv = idPixiv
+		this.idTag = idTag
+	}
 }
