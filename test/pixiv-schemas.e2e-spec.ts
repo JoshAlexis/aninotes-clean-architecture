@@ -5,7 +5,7 @@ import { mockDeep } from 'jest-mock-extended'
 import { PixivModule } from 'pixiv/pixiv.module'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { TagsModule } from 'tags/tags.module'
-import { CreatePixivDto } from 'pixiv/domain/dto/create-pixiv.dto'
+import { CreatePixivInputDto } from 'pixiv/application/dto/create-pixiv-input.dto'
 import { createPixivData } from 'pixiv/application/test/create-pixiv.data'
 import { PrismaModule } from 'prisma/infrastructure/prisma.module'
 
@@ -43,7 +43,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field idPixiv is 0', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				idPixiv: 0
 			}
@@ -54,7 +54,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field quality is 0', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				quality: 0
 			}
@@ -65,7 +65,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field favorite is 0', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				favorite: 0
 			}
@@ -76,7 +76,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field link is empty', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				link: ''
 			}
@@ -86,7 +86,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field link is not from pixiv', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				link: 'https://www.artstation.com/artwork/r98AyO'
 			}
@@ -96,7 +96,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field link is not of pixiv user', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				link: 'https://www.pixiv.net/en/artworks/93435536'
 			}
@@ -106,7 +106,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field example is empty', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				example: ''
 			}
@@ -116,7 +116,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field example is not from pixiv', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				example: 'https://www.artstation.com/artwork/r98AyO'
 			}
@@ -126,7 +126,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field example is not from pixiv original image', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				example: 'https://www.pixiv.net/en/artworks/38183633'
 			}
@@ -144,7 +144,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field idPixiv is 0', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				idPixiv: 0
 			}
@@ -155,7 +155,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field quality is 0', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				quality: 0
 			}
@@ -166,7 +166,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field favorite is 0', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				favorite: 0
 			}
@@ -177,7 +177,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field link is empty', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				link: ''
 			}
@@ -187,7 +187,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field link is not from pixiv', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				link: 'https://www.artstation.com/artwork/r98AyO'
 			}
@@ -197,7 +197,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field link is not of pixiv user', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				link: 'https://www.pixiv.net/en/artworks/93435536'
 			}
@@ -207,7 +207,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field example is empty', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				example: ''
 			}
@@ -217,7 +217,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field example is not from pixiv', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				example: 'https://www.artstation.com/artwork/r98AyO'
 			}
@@ -227,7 +227,7 @@ describe('Pixiv Schemas', () => {
 		})
 
 		it('Should fail when field example is not from pixiv original image', async () => {
-			const createPixiv: CreatePixivDto = {
+			const createPixiv: CreatePixivInputDto = {
 				...createPixivData,
 				example: 'https://www.pixiv.net/en/artworks/38183633'
 			}

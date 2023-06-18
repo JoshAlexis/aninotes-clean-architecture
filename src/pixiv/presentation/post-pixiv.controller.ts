@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common'
 import { CreatePixiv } from 'pixiv/application/create-pixiv.use-case'
-import { CreatePixivDto } from 'pixiv/domain/dto/create-pixiv.dto'
+import { CreatePixivInputDto } from 'pixiv/application/dto/create-pixiv-input.dto'
 
 @Controller({
 	version: '1',
@@ -10,7 +10,7 @@ export class PostPixivController {
 	constructor(private readonly createPixiv: CreatePixiv) {}
 
 	@Post()
-	async create(@Body() data: CreatePixivDto) {
+	async create(@Body() data: CreatePixivInputDto) {
 		return this.createPixiv.run(data)
 	}
 }

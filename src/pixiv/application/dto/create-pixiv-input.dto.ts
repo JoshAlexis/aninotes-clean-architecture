@@ -20,7 +20,7 @@ class TagItem {
 	id: string
 }
 
-export class CreatePixivDto {
+export class CreatePixivInputDto {
 	@IsString()
 	@IsOptional()
 	pixivName: string
