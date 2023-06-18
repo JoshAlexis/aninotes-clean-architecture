@@ -4,7 +4,7 @@ import request from 'supertest'
 import { mockDeep } from 'jest-mock-extended'
 import { TagsModule } from 'tags/tags.module'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
-import { CreateTagDto } from 'tags/domain/dto/create-tag.dto'
+import { CreateTagInputDto } from 'tags/application/dto/create-tag-input.dto'
 import { PrismaModule } from 'prisma/infrastructure/prisma.module'
 
 describe('Tags Schemas', () => {
@@ -41,7 +41,7 @@ describe('Tags Schemas', () => {
 		})
 
 		it('Should fail when field name is empty', async () => {
-			const createTag: CreateTagDto = {
+			const createTag: CreateTagInputDto = {
 				name: '',
 				rated18: false
 			}
@@ -51,7 +51,7 @@ describe('Tags Schemas', () => {
 		})
 
 		it('Should fail when field rated18 is not a boolean', async () => {
-			const createTag: CreateTagDto = {
+			const createTag: CreateTagInputDto = {
 				name: 'test',
 				rated18: '' as any
 			}
@@ -69,7 +69,7 @@ describe('Tags Schemas', () => {
 		})
 
 		it('Should fail when field name is empty', async () => {
-			const createTag: CreateTagDto = {
+			const createTag: CreateTagInputDto = {
 				name: '',
 				rated18: false
 			}
@@ -79,7 +79,7 @@ describe('Tags Schemas', () => {
 		})
 
 		it('Should fail when field rated18 is not a boolean', async () => {
-			const createTag: CreateTagDto = {
+			const createTag: CreateTagInputDto = {
 				name: 'test',
 				rated18: '' as any
 			}

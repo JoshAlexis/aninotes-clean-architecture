@@ -1,9 +1,8 @@
-import { CreateTagDto } from './dto/create-tag.dto'
-import { UpdateTagDto } from './dto/update-tag.dto'
+import { TagsEntity } from 'tags/domain/tags.entity'
 
-export interface TagsRepository<T = unknown> {
-	getAllTags(): Promise<T[]>
-	getTagById(id: string): Promise<T>
-	createTag(data: CreateTagDto): Promise<T>
-	updateTag(id: string, newData: UpdateTagDto): Promise<T>
+export interface TagsRepository {
+	getAllTags(): Promise<TagsEntity[]>
+	getTagById(id: string): Promise<TagsEntity>
+	createTag(data: TagsEntity): Promise<TagsEntity>
+	updateTag(id: string, newData: TagsEntity): Promise<TagsEntity>
 }

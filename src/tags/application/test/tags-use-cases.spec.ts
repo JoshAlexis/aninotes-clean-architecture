@@ -4,8 +4,8 @@ import { v4 as uuid } from 'uuid'
 import { Tag } from '@prisma/client'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { TagsTokens } from 'tags/di/tags.tokens'
-import { CreateTagDto } from 'tags/domain/dto/create-tag.dto'
-import { UpdateTagDto } from 'tags/domain/dto/update-tag.dto'
+import { CreateTagInputDto } from 'tags/application/dto/create-tag-input.dto'
+import { UpdateTagInputDto } from 'tags/application/dto/update-tag-input.dto'
 import { TagsEntityMapper } from 'tags/infrastructure/tags-entity.mapper'
 import { TagsPrismaRepository } from 'tags/infrastructure/tags-prisma.respository'
 import { CreateTag } from '../create-tag.use-case'
@@ -14,7 +14,7 @@ import { GetTag } from '../get-tag.use-case'
 import { UpdateTag } from '../update-tag.use-case'
 import { NotFoundException } from '@nestjs/common'
 
-export const createTagData: CreateTagDto = {
+export const createTagData: CreateTagInputDto = {
 	name: 'test',
 	rated18: false
 }
@@ -27,7 +27,7 @@ export const createTagMockResponse: Tag = {
 	updatedAt: new Date()
 }
 
-export const updateTagData: UpdateTagDto = {
+export const updateTagData: UpdateTagInputDto = {
 	name: 'Update Tag',
 	rated18: true
 }
