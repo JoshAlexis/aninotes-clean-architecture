@@ -1,22 +1,20 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
-import { CreateTagDto } from 'tags/domain/dto/create-tag.dto'
-import { UpdateTagDto } from 'tags/domain/dto/update-tag.dto'
-import { TagEntity } from 'tags/domain/tag.entity'
 import { TagsRepository } from 'tags/domain/tags.repository'
 import { TagsEntityMapper } from './tags-entity.mapper'
+import { TagsEntity } from 'tags/domain/tags.entity'
 
 @Injectable()
-export class TagsPrismaRepository implements TagsRepository<TagEntity> {
+export class TagsPrismaRepository implements TagsRepository {
 	constructor(private readonly prisma: PrismaService, private readonly mapper: TagsEntityMapper) {}
 
-	async getAllTags(): Promise<TagEntity[]> {
+	async getAllTags(): Promise<TagsEntity[]> {
 		const tags = await this.prisma.tag.findMany()
 
 		return this.mapper.toTagEntityList(tags)
 	}
 
-	async getTagById(id: string): Promise<TagEntity> {
+	async getTagById(id: string): Promise<TagsEntity> {
 		const tag = await this.prisma.tag.findUnique({
 			where: {
 				id
@@ -30,20 +28,22 @@ export class TagsPrismaRepository implements TagsRepository<TagEntity> {
 		return this.mapper.toTagEntity(tag)
 	}
 
-	async createTag(data: CreateTagDto): Promise<TagEntity> {
+	async createTag(data: TagsEntity): Promise<TagsEntity> {
 		const createTag = await this.prisma.tag.create({
 			data: {
-				...data
+				name: data.name,
+				rated18: data.rated18
 			}
 		})
 
 		return this.mapper.toTagEntity(createTag)
 	}
 
-	async updateTag(id: string, newData: UpdateTagDto): Promise<TagEntity> {
+	async updateTag(id: string, newData: TagsEntity): Promise<TagsEntity> {
 		const tag = await this.prisma.tag.update({
 			data: {
-				...newData
+				name: newData.name,
+				rated18: newData.rated18
 			},
 			where: {
 				id

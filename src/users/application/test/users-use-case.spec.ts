@@ -8,10 +8,11 @@ import { GetUserByEmail } from 'users/application/get-user-by-email.use-case'
 import { UsersTokens } from 'users/di/users.tokens'
 import { UserPrismaRepository } from 'users/infrastructure/user-prisma.repository'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
-import { UsersInfraMapper } from 'users/infrastructure/users-infra.mapper'
+import { UsersEntityMapper } from 'users/infrastructure/users-entity.mapper'
 import { createUserResult } from 'users/application/test/create-user-result.utils'
 import { updateUserResult } from 'users/application/test/update-user-result.utils'
 import { UpdateUser } from 'users/application/update-user.use-case'
+import { UsersDtoEntityMapper } from 'users/application/dto/users-dto-entity.mapper'
 
 describe('Users Use Cases', () => {
 	let createUser: CreateUser
@@ -31,8 +32,9 @@ describe('Users Use Cases', () => {
 				GetUserByEmail,
 				GetAllUsers,
 				UpdateUser,
-				UsersInfraMapper,
-				PrismaService
+				UsersEntityMapper,
+				PrismaService,
+				UsersDtoEntityMapper
 			]
 		})
 			.overrideProvider(PrismaService)

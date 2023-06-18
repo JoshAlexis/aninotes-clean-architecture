@@ -6,9 +6,10 @@ import { CreateUser } from 'users/application/create-user.use-case'
 import { GetAllUsers } from 'users/application/get-all-users.use-case'
 import { GetUserByEmail } from 'users/application/get-user-by-email.use-case'
 import { UserPrismaRepository } from 'users/infrastructure/user-prisma.repository'
-import { UsersInfraMapper } from 'users/infrastructure/users-infra.mapper'
+import { UsersEntityMapper } from 'users/infrastructure/users-entity.mapper'
 import { PutUsersController } from 'users/presentation/put-users.controller'
 import { UpdateUser } from 'users/application/update-user.use-case'
+import { UsersDtoEntityMapper } from 'users/application/dto/users-dto-entity.mapper'
 
 @Module({
 	controllers: [GetUsersController, PostUsersController, PutUsersController],
@@ -20,8 +21,9 @@ import { UpdateUser } from 'users/application/update-user.use-case'
 		{
 			provide: UsersTokens.USER_REPOSITORY,
 			useClass: UserPrismaRepository
-	},
-		UsersInfraMapper
+		},
+		UsersEntityMapper,
+		UsersDtoEntityMapper
 	]
 })
 export class UsersModule {}
