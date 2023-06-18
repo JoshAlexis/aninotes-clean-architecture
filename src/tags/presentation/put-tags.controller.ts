@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Put } from '@nestjs/common'
 import { UpdateTag } from 'tags/application/update-tag.use-case'
-import { UpdateTagDto } from 'tags/domain/dto/update-tag.dto'
+import { UpdateTagInputDto } from 'tags/application/dto/update-tag-input.dto'
 
 @Controller({
 	version: '1',
@@ -10,7 +10,7 @@ export class PutTagsController {
 	constructor(private readonly updateTag: UpdateTag) {}
 
 	@Put('/:id')
-	put(@Param('id') id: string, @Body() data: UpdateTagDto) {
+	put(@Param('id') id: string, @Body() data: UpdateTagInputDto) {
 		return this.updateTag.run(id, data)
 	}
 }

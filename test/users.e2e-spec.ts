@@ -7,8 +7,9 @@ import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { createUserResult } from 'users/application/test/create-user-result.utils'
 import { UsersModule } from 'users/users.module'
 import { PrismaModule } from 'prisma/infrastructure/prisma.module'
-import { CreateUserDto, UpdateUserDto } from 'users/domain/dto'
 import { updateUserResult } from 'users/application/test/update-user-result.utils'
+import { CreateUserInputDto } from 'users/application/dto/create-user-input.dto'
+import { UpdateUserInputDto } from 'users/application/dto/update-user-input.dto'
 
 function formatDate(date: Date) {
 	return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
@@ -82,7 +83,7 @@ describe('User Endpoints (e2e)', () => {
 		it('POST /api/v1/users', async () => {
 			prismaService.user.create.mockResolvedValue(createUserResult)
 
-			const createUserDto: CreateUserDto = {
+			const createUserDto: CreateUserInputDto = {
 				userName: createUserResult.userName as string,
 				email: createUserResult.email,
 				password: createUserResult.password
@@ -105,7 +106,7 @@ describe('User Endpoints (e2e)', () => {
 
 			prismaService.user.update.mockResolvedValue(updateUserResult)
 
-			const updateUserDto: UpdateUserDto = {
+			const updateUserDto: UpdateUserInputDto = {
 				email: updateUserResult.email,
 				password: updateUserResult.password,
 				userName: updateUserResult.userName as string

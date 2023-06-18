@@ -1,6 +1,6 @@
-import { CreatePixivDto } from 'pixiv/domain/dto/create-pixiv.dto'
+import { CreatePixivInputDto } from 'pixiv/application/dto/create-pixiv-input.dto'
 
-export const createPixivData: CreatePixivDto = {
+export const createPixivData: CreatePixivInputDto = {
 	idPixiv: 12312412,
 	pixivName: "L'vin",
 	link: 'https://www.pixiv.net/en/users/38183633',

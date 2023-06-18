@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { PixivTokens } from 'pixiv/di/pixiv.tokens'
 import { PixivRepository } from 'pixiv/domain/pixiv.repository'
-import { CreatePixivDto } from 'pixiv/domain/dto/create-pixiv.dto'
+import { CreatePixivInputDto } from 'pixiv/application/dto/create-pixiv-input.dto'
 import { PixivTagEntity } from 'pixiv/domain/pixiv-tag.entity'
 import { PixivEntity } from 'pixiv/domain/pixiv.entity'
 
@@ -9,8 +9,8 @@ import { PixivEntity } from 'pixiv/domain/pixiv.entity'
 export class CreatePixiv {
 	constructor(@Inject(PixivTokens.PIXIV_REPOSITORY) private readonly repository: PixivRepository) {}
 
-	async run(data: CreatePixivDto): Promise<[PixivEntity, PixivTagEntity[]]> {
-		const pixiv = await this.repository.createPixiv(data)
+	async run(data: CreatePixivInputDto): Promise<[PixivEntity, PixivTagEntity[]]> {
+		const pixiv = await this.repository.createPixiv(this.mapToEntity(data))
 
 		const tagsList: Array<PixivTagEntity> = []
 
@@ -20,5 +20,18 @@ export class CreatePixiv {
 		}
 
 		return [pixiv, tagsList]
+	}
+
+	private mapToEntity(data: CreatePixivInputDto): PixivEntity {
+		return new PixivEntity(
+			'',
+			data.pixivName,
+			data.idPixiv,
+			data.link,
+			data.example,
+			data.hasR18Content,
+			data.favorite,
+			data.quality
+		)
 	}
 }

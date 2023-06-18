@@ -1,20 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { PixivRepository } from 'pixiv/domain/pixiv.repository'
-import { CreatePixivDto } from 'pixiv/domain/dto/create-pixiv.dto'
 import { PixivEntity } from 'pixiv/domain/pixiv.entity'
-import { UpdatePixivDto } from 'pixiv/domain/dto/update-pixiv.dto'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
 import { PixivEntityMapper } from 'pixiv/infrastructure/pixiv-entity.mapper'
 import { PixivTagEntity } from 'pixiv/domain/pixiv-tag.entity'
 import { calculateSkipRecords } from 'shared/infrastructure/utils/calculateSkipRecords'
-import { PixivWithTags } from 'pixiv/infrastructure/pixiv-with-tags.type'
-import { PixivTagsDto } from 'pixiv/domain/dto/pixiv-tags.dto'
+import { PixivWithTagsDto } from 'pixiv/infrastructure/pixiv-with-tags.dto'
+import { PixivTagsItemEntity } from 'pixiv/domain/pixiv-tags-item.entity'
 
 @Injectable()
 export class PixivPrismaRepository implements PixivRepository {
 	constructor(private readonly prismaService: PrismaService, private readonly mapper: PixivEntityMapper) {}
 
-	async createPixiv(data: CreatePixivDto): Promise<PixivEntity> {
+	async createPixiv(data: PixivEntity): Promise<PixivEntity> {
 		const createdPixiv = await this.prismaService.pixiv.create({
 			data: {
 				idPixiv: data.idPixiv,
@@ -77,7 +75,7 @@ export class PixivPrismaRepository implements PixivRepository {
 		return this.mapper.toEntity(item)
 	}
 
-	async updatePixiv(id: string, data: UpdatePixivDto): Promise<PixivEntity> {
+	async updatePixiv(id: string, data: PixivEntity): Promise<PixivEntity> {
 		const updatedPixiv = await this.prismaService.pixiv.update({
 			where: {
 				id
@@ -101,7 +99,7 @@ export class PixivPrismaRepository implements PixivRepository {
 		return this.mapper.toPixivTagEntity(createdTag)
 	}
 
-	async getPixivTags(id: string): Promise<ReadonlyArray<PixivTagsDto>> {
+	async getPixivTags(id: string): Promise<ReadonlyArray<PixivTagsItemEntity>> {
 		const pixivTagList = (await this.prismaService.pixiv.findFirst({
 			where: {
 				id
@@ -118,8 +116,8 @@ export class PixivPrismaRepository implements PixivRepository {
 					}
 				}
 			}
-		})) as PixivWithTags
+		})) as PixivWithTagsDto
 
-		return this.mapper.toPixivWithTags(pixivTagList)
+		return this.mapper.toPixivItemTagsEntity(pixivTagList)
 	}
 }

@@ -2,52 +2,36 @@ import { Pixiv, PixivTags } from '@prisma/client'
 import { PixivEntity } from 'pixiv/domain/pixiv.entity'
 import { Injectable } from '@nestjs/common'
 import { PixivTagEntity } from 'pixiv/domain/pixiv-tag.entity'
-import { PixivWithTags } from 'pixiv/infrastructure/pixiv-with-tags.type'
-import { PixivTagsDto } from 'pixiv/domain/dto/pixiv-tags.dto'
+import { PixivWithTagsDto } from 'pixiv/infrastructure/pixiv-with-tags.dto'
+import { PixivTagsItemEntity } from 'pixiv/domain/pixiv-tags-item.entity'
 
 @Injectable()
 export class PixivEntityMapper {
 	toEntity(data: Pixiv): PixivEntity {
-		return {
-			id: data.id,
-			pixivName: data.pixivName ?? 'In Japanese',
-			idPixiv: data.idPixiv,
-			link: data.link,
-			quality: data.quality,
-			favorite: data.favorite,
-			example: data.example,
-			hasR18Content: data.hasR18Content
-		}
+		return new PixivEntity(
+			data.id,
+			data.pixivName as string,
+			data.idPixiv,
+			data.link,
+			data.example,
+			data.hasR18Content,
+			data.favorite,
+			data.quality
+		)
 	}
 
 	toEntityList(dataList: Pixiv[]): PixivEntity[] {
 		if (dataList.length === 0) return []
-		return dataList.map((data) => ({
-			id: data.id,
-			pixivName: data.pixivName ?? 'In Japanese',
-			idPixiv: data.idPixiv,
-			link: data.link,
-			quality: data.quality,
-			favorite: data.favorite,
-			example: data.example,
-			hasR18Content: data.hasR18Content
-		}))
+		return dataList.map((data) => this.toEntity(data))
 	}
 
 	toPixivTagEntity(data: PixivTags): PixivTagEntity {
-		return {
-			id: data.id,
-			idPixiv: data.pixivId ?? '',
-			idTag: data.tagId ?? ''
-		}
+		return new PixivTagEntity(data.id, data.pixivId as string, data.tagId as string)
 	}
 
-	toPixivWithTags(data: PixivWithTags): ReadonlyArray<PixivTagsDto> {
+	toPixivItemTagsEntity(data: PixivWithTagsDto): ReadonlyArray<PixivTagsItemEntity> {
 		return data.tags.map((tag) => {
-			return {
-				idPixivTag: tag.id,
-				name: tag.tag?.name as string
-			}
+			return new PixivTagsItemEntity(tag.id, tag.tag?.name as string)
 		})
 	}
 }
