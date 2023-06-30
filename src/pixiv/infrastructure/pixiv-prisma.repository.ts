@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { PixivRepository } from 'pixiv/domain/pixiv.repository'
 import { PixivEntity } from 'pixiv/domain/pixiv.entity'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
@@ -47,30 +47,26 @@ export class PixivPrismaRepository implements PixivRepository {
 		return this.mapper.toEntityList(pixivItems)
 	}
 
-	async getById(id: string): Promise<PixivEntity> {
+	async getById(id: string): Promise<PixivEntity | null> {
 		const pixiv = await this.prismaService.pixiv.findUnique({
 			where: {
 				id
 			}
 		})
 
-		if (!pixiv) {
-			throw new NotFoundException(`There is not a pixiv item with id ${id}`)
-		}
+		if (pixiv === null) return null
 
 		return this.mapper.toEntity(pixiv)
 	}
 
-	async getByIdPixiv(idPixiv: number): Promise<PixivEntity> {
+	async getByIdPixiv(idPixiv: number): Promise<PixivEntity | null> {
 		const item = await this.prismaService.pixiv.findUnique({
 			where: {
 				idPixiv
 			}
 		})
 
-		if (!item) {
-			throw new NotFoundException(`There is not a pixiv item with idPixiv ${idPixiv}`)
-		}
+		if (!item) return null
 
 		return this.mapper.toEntity(item)
 	}
