@@ -14,16 +14,14 @@ export class TagsPrismaRepository implements TagsRepository {
 		return this.mapper.toTagEntityList(tags)
 	}
 
-	async getTagById(id: string): Promise<TagsEntity> {
+	async getTagById(id: string): Promise<TagsEntity | null> {
 		const tag = await this.prisma.tag.findUnique({
 			where: {
 				id
 			}
 		})
 
-		if (!tag) {
-			throw new NotFoundException({ message: `Tag with id ${id} not found` })
-		}
+		if (tag === null) return null
 
 		return this.mapper.toTagEntity(tag)
 	}

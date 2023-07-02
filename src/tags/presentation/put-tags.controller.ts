@@ -1,7 +1,9 @@
-import { Body, Controller, Param, Put } from '@nestjs/common'
+import { Body, Controller, Param, Put, UseInterceptors } from "@nestjs/common";
 import { UpdateTag } from 'tags/application/update-tag.use-case'
 import { UpdateTagInputDto } from 'tags/application/dto/update-tag-input.dto'
+import { TagsErrorInterceptor } from 'tags/presentation/interceptors/tags-error.interceptor'
 
+@UseInterceptors(TagsErrorInterceptor)
 @Controller({
 	version: '1',
 	path: 'tags'
