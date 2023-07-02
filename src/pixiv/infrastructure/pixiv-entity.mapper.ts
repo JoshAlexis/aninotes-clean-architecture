@@ -30,6 +30,7 @@ export class PixivEntityMapper {
 	}
 
 	toPixivItemTagsEntity(data: PixivWithTagsDto): ReadonlyArray<PixivTagsItemEntity> {
+		if (data === null || data === undefined) return []
 		return data.tags.map((tag) => {
 			return new PixivTagsItemEntity(tag.id, tag.tag?.name as string)
 		})

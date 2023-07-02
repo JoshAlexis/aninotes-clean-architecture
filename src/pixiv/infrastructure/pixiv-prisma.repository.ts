@@ -66,7 +66,7 @@ export class PixivPrismaRepository implements PixivRepository {
 			}
 		})
 
-		if (!item) return null
+		if (item === null) return null
 
 		return this.mapper.toEntity(item)
 	}

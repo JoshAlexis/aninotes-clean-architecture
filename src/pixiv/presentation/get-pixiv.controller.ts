@@ -1,9 +1,11 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common'
+import { Controller, Get, Param, ParseIntPipe, Query, UseInterceptors } from '@nestjs/common'
 import { GetPixivList } from 'pixiv/application/get-pixiv-list.use-case'
 import { GetPixivById } from 'pixiv/application/get-pixiv-by-id.use-case'
 import { GetPixivByIdPixiv } from 'pixiv/application/get-pixiv-by-id-pixiv.use-case'
 import { PixivPresenterMapper } from './presenters/pixiv-presenter.mapper'
+import { PixivErrorsInterceptor } from 'pixiv/presentation/interceptors/pixiv-errors.interceptor'
 
+@UseInterceptors(PixivErrorsInterceptor)
 @Controller({
 	version: '1',
 	path: 'pixiv'

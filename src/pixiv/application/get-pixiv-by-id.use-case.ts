@@ -11,9 +11,11 @@ export class GetPixivById {
 
 	async run(id: string): Promise<[PixivEntity, ReadonlyArray<PixivTagsItemEntity>]> {
 		const pixiv = await this.repository.getById(id)
-		const pixivTags = await this.repository.getPixivTags(id)
 
 		if (pixiv === null) throw new PixivNotFoundError(id)
+
+		const pixivTags = await this.repository.getPixivTags(id)
+
 
 		return [pixiv, pixivTags]
 	}
