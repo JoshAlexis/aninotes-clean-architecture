@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { UsersRepository } from 'users/domain/users.repository'
 import { UserEntity } from 'users/domain/user.entity'
 import { PrismaService } from 'prisma/infrastructure/prisma.service'
@@ -19,17 +19,19 @@ export class UserPrismaRepository implements UsersRepository {
 		return this.mapper.toUserEntity(createdUser)
 	}
 
-	async updateUser(id: string, data: UserEntity): Promise<UserEntity> {
-		const foundUser = await this.prismaService.user.findUnique({
+	async findUser(id: string): Promise<UserEntity | null> {
+		const user = await this.prismaService.user.findUnique({
 			where: {
 				id
 			}
 		})
 
-		if (!foundUser) {
-			throw new NotFoundException('User not found')
-		}
+		if (user === null) return null
 
+		return this.mapper.toUserEntity(user)
+	}
+
+	async updateUser(id: string, data: UserEntity): Promise<UserEntity> {
 		const updatedUser = await this.prismaService.user.update({
 			where: {
 				id
@@ -44,16 +46,14 @@ export class UserPrismaRepository implements UsersRepository {
 		return this.mapper.toUserEntity(updatedUser)
 	}
 
-	async findUserByEmail(email: string): Promise<UserEntity> {
+	async findUserByEmail(email: string): Promise<UserEntity | null> {
 		const user = await this.prismaService.user.findFirst({
 			where: {
 				email
 			}
 		})
 
-		if (!user) {
-			throw new NotFoundException('User not found')
-		}
+		if (user === null) return null
 
 		return this.mapper.toUserEntity(user)
 	}

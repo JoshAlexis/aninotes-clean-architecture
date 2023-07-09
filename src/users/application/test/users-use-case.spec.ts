@@ -13,11 +13,13 @@ import { createUserResult } from 'users/application/test/create-user-result.util
 import { updateUserResult } from 'users/application/test/update-user-result.utils'
 import { UpdateUser } from 'users/application/update-user.use-case'
 import { UsersDtoEntityMapper } from 'users/application/dto/users-dto-entity.mapper'
+import { GetUserById } from 'users/application/get-user-by-id.use-case'
 
 describe('Users Use Cases', () => {
 	let createUser: CreateUser
 	let getAllUsers: GetAllUsers
 	let getUserByEmail: GetUserByEmail
+	let getUserById: GetUserById
 	let updateUser: UpdateUser
 	let prismaService: DeepMockProxy<PrismaService>
 
@@ -32,6 +34,7 @@ describe('Users Use Cases', () => {
 				GetUserByEmail,
 				GetAllUsers,
 				UpdateUser,
+				GetUserById,
 				UsersEntityMapper,
 				PrismaService,
 				UsersDtoEntityMapper
@@ -45,6 +48,7 @@ describe('Users Use Cases', () => {
 		getAllUsers = app.get(GetAllUsers)
 		getUserByEmail = app.get(GetUserByEmail)
 		updateUser = app.get(UpdateUser)
+		getUserById = app.get(GetUserById)
 		prismaService = app.get(PrismaService)
 	})
 	// TODO: make userName optional
@@ -91,6 +95,19 @@ describe('Users Use Cases', () => {
 		})
 
 		expect(prismaService.user.findFirst).toHaveBeenCalled()
+		expect(result.id).toBe(createUserResult.id)
+		expect(result.userName).toBe(createUserResult.userName)
+		expect(result.email).toBe(createUserResult.email)
+		expect(result.createdAt).toBe(dayjs(createUserResult.createdAt).format('YYYY-MM-DD HH:mm:ss'))
+		expect(result.updatedAt).toBe(dayjs(createUserResult.updatedAt).format('YYYY-MM-DD HH:mm:ss'))
+	})
+
+	it('Should fetch a user by id', async () => {
+		prismaService.user.findUnique.mockResolvedValue(createUserResult)
+
+		const result = await getUserById.run(createUserResult.id)
+
+		expect(prismaService.user.findUnique).toHaveBeenCalled()
 		expect(result.id).toBe(createUserResult.id)
 		expect(result.userName).toBe(createUserResult.userName)
 		expect(result.email).toBe(createUserResult.email)

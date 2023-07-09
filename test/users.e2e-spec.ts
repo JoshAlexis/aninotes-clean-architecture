@@ -59,6 +59,19 @@ describe('User Endpoints (e2e)', () => {
 			expect(result.body[0].updatedAt).toBe(formatDate(createUserResult.updatedAt))
 			expect(result.body[0].createdAt).toBe(formatDate(createUserResult.createdAt))
 		})
+
+		it('GET /api/v1/users/:id', async () => {
+			prismaService.user.findUnique.mockResolvedValue(createUserResult)
+
+			const result = await request(app.getHttpServer()).get(`/users/${createUserResult.id}`).expect(200)
+
+			expect(result.body).toBeDefined()
+			expect(result.body.id).toBe(createUserResult.id)
+			expect(result.body.email).toBe(createUserResult.email)
+			expect(result.body.userName).toBe(createUserResult.userName)
+			expect(result.body.updatedAt).toBe(formatDate(createUserResult.updatedAt))
+			expect(result.body.createdAt).toBe(formatDate(createUserResult.createdAt))
+		})
 	})
 
 	describe('PostUserController', () => {
@@ -118,6 +131,7 @@ describe('User Endpoints (e2e)', () => {
 				.expect(200)
 
 			expect(result.body).toBeDefined()
+
 			expect(result.body.id).toBe(updateUserResult.id)
 			expect(result.body.email).toBe(updateUserResult.email)
 			expect(result.body.userName).toBe(updateUserResult.userName)

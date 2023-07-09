@@ -13,6 +13,7 @@ import { GetAllTags } from '../get-all-tags.use-case'
 import { GetTag } from '../get-tag.use-case'
 import { UpdateTag } from '../update-tag.use-case'
 import { NotFoundException } from '@nestjs/common'
+import { TagNotFoundError } from "tags/domain/errors/tag-not-found.error";
 
 export const createTagData: CreateTagInputDto = {
 	name: 'test',
@@ -122,6 +123,7 @@ describe('Tag Use Cases', () => {
 	})
 
 	it('Should update a tag', async () => {
+		prismaService.tag.findUnique.mockResolvedValue(createTagMockResponse)
 		prismaService.tag.update.mockResolvedValue(updateTagMockResponse)
 
 		const response = await updateTagUseCase.run(updateTagMockResponse.id, updateTagData)
@@ -149,10 +151,10 @@ describe('Tag Use Cases', () => {
 			expect(response).toHaveProperty('updatedAt')
 		})
 
-		it('Should fail when an item is not found', async () => {
+		it('Should fail when the tag is not found', async () => {
 			prismaService.tag.findUnique.mockResolvedValue(null)
 
-			await expect(getTagUseCase.run(fetchTagByIdMockResponse.id)).rejects.toBeInstanceOf(NotFoundException)
+			await expect(getTagUseCase.run(fetchTagByIdMockResponse.id)).rejects.toBeInstanceOf(TagNotFoundError)
 		})
 	})
 

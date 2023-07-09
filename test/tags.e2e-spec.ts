@@ -69,8 +69,12 @@ describe('Tags Endpoints (e2e)', () => {
 
 	describe('PutTagsController', () => {
 		it('PUT /api/v1/tags/:id', async () => {
+			prismaService.tag.findUnique.mockResolvedValue(createTagMockResponse)
 			prismaService.tag.update.mockResolvedValue(updateTagMockResponse)
-			const result = await request(app.getHttpServer()).put(`/tags/${updateTagMockResponse.id}`).expect(200)
+			const result = await request(app.getHttpServer())
+				.put(`/tags/${updateTagMockResponse.id}`)
+				.send(updateTagData)
+				.expect(200)
 
 			expect(result.body).toBeDefined()
 			expect(result.body).toHaveProperty('id')
