@@ -1,4 +1,5 @@
-import { Controller, Get, UseInterceptors } from '@nestjs/common'
+// eslint-disable-next-line prettier/prettier
+import { Controller, Get, Param, UseInterceptors } from "@nestjs/common";
 import { GetAllUsers } from 'users/application/get-all-users.use-case'
 import { GetUserById } from 'users/application/get-user-by-id.use-case'
 import { UsersErrorInterceptor } from 'users/presentation/interceptors/users-error.interceptor'
@@ -12,7 +13,7 @@ export class GetUsersController {
 	constructor(private readonly getAllUsers: GetAllUsers, private readonly getUserById: GetUserById) {}
 
 	@Get('/:id')
-	getUser(id: string) {
+	getUser(@Param() id: string) {
 		return this.getUserById.run(id)
 	}
 
