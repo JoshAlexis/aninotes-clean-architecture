@@ -4,7 +4,8 @@ import {
 	ExecutionContext,
 	CallHandler,
 	NotFoundException,
-	InternalServerErrorException
+	InternalServerErrorException,
+	BadRequestException
 } from '@nestjs/common'
 import { Observable, throwError, catchError } from 'rxjs'
 import { PixivByIdPixivNotFoundError } from 'pixiv/domain/errors/pixiv-by-id-pixiv-not-found.error'
@@ -21,6 +22,8 @@ export class PixivErrorsInterceptor implements NestInterceptor {
 			return throwError(() => new NotFoundException(error.message))
 		} else if (error instanceof PixivNotFoundError) {
 			return throwError(() => new NotFoundException(error.message))
+		} else if (error instanceof BadRequestException) {
+			return throwError(() => error)
 		}
 		return throwError(() => new InternalServerErrorException(error.message))
 	}

@@ -26,7 +26,8 @@ import {
 } from 'pixiv/application/test/mocks'
 import { createPixivData } from 'pixiv/application/test/create-pixiv.data'
 import { updatePixivData } from 'pixiv/application/test/update-pixiv.data'
-import { NotFoundException } from '@nestjs/common'
+import { PixivNotFoundError } from 'pixiv/domain/errors/pixiv-not-found.error'
+import { PixivByIdPixivNotFoundError } from 'pixiv/domain/errors/pixiv-by-id-pixiv-not-found.error'
 
 describe('Pixiv Use Cases', () => {
 	let createPixiv: CreatePixiv
@@ -152,7 +153,7 @@ describe('Pixiv Use Cases', () => {
 		it('Should fail when an item is not found', async () => {
 			prismaService.pixiv.findUnique.mockResolvedValue(null)
 
-			await expect(getPixivById.run(fetchItemPixivMockResponse.id)).rejects.toBeInstanceOf(NotFoundException)
+			await expect(getPixivById.run(fetchItemPixivMockResponse.id)).rejects.toBeInstanceOf(PixivNotFoundError)
 		})
 	})
 
@@ -184,7 +185,9 @@ describe('Pixiv Use Cases', () => {
 		it('Should fail when an item is not found', async () => {
 			prismaService.pixiv.findUnique.mockResolvedValue(null)
 
-			await expect(getPixivByIdPixiv.run(fetchByIdPixivMockResponse.idPixiv)).rejects.toBeInstanceOf(NotFoundException)
+			await expect(getPixivByIdPixiv.run(fetchByIdPixivMockResponse.idPixiv)).rejects.toBeInstanceOf(
+				PixivByIdPixivNotFoundError
+			)
 		})
 	})
 

@@ -4,6 +4,7 @@ import {
 	ExecutionContext,
 	CallHandler,
 	NotFoundException,
+	InternalServerErrorException,
 	BadRequestException
 } from '@nestjs/common'
 import { Observable, throwError, catchError } from 'rxjs'
@@ -19,6 +20,9 @@ export class TagsErrorInterceptor implements NestInterceptor {
 		if (error instanceof TagNotFoundError) {
 			return throwError(() => new NotFoundException(error.message))
 		}
-		return throwError(() => new BadRequestException(error.message))
+		if (error instanceof BadRequestException) {
+			return throwError(() => error)
+		}
+		return throwError(() => new InternalServerErrorException(error.message))
 	}
 }

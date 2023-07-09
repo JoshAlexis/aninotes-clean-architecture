@@ -4,7 +4,8 @@ import {
 	ExecutionContext,
 	InternalServerErrorException,
 	NotFoundException,
-	CallHandler
+	CallHandler,
+	BadRequestException
 } from '@nestjs/common'
 import { Observable, throwError, catchError } from 'rxjs'
 import { UserNotFoundError } from 'users/domain/user-not-found.error'
@@ -18,6 +19,8 @@ export class UsersErrorInterceptor implements NestInterceptor {
 	private mapToError(error: any) {
 		if (error instanceof UserNotFoundError) {
 			return throwError(() => new NotFoundException(error.message))
+		} else if (error instanceof BadRequestException) {
+			return throwError(() => error)
 		}
 		return throwError(() => new InternalServerErrorException(error.message))
 	}
