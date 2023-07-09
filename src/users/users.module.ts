@@ -10,6 +10,7 @@ import { UsersEntityMapper } from 'users/infrastructure/users-entity.mapper'
 import { PutUsersController } from 'users/presentation/put-users.controller'
 import { UpdateUser } from 'users/application/update-user.use-case'
 import { UsersDtoEntityMapper } from 'users/application/dto/users-dto-entity.mapper'
+import { GetUserById } from 'users/application/get-user-by-id.use-case'
 
 @Module({
 	controllers: [GetUsersController, PostUsersController, PutUsersController],
@@ -18,12 +19,14 @@ import { UsersDtoEntityMapper } from 'users/application/dto/users-dto-entity.map
 		GetAllUsers,
 		GetUserByEmail,
 		UpdateUser,
+		GetUserById,
 		{
 			provide: UsersTokens.USER_REPOSITORY,
 			useClass: UserPrismaRepository
 		},
 		UsersEntityMapper,
 		UsersDtoEntityMapper
-	]
+	],
+	exports: [GetUserById]
 })
 export class UsersModule {}
