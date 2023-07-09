@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.7.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.6.0...v1.7.0) (2023-07-09)
+
+
+### Features
+
+* **pixiv:** add domain errors ([093b859](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/093b859c6fe33ba6cda7fdf2120b686c33a8886c))
+* **pixiv:** add interceptor for domain error ([4f9216f](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/4f9216f00e11203922d2a5ef0a60be07d633d9d2))
+* **tags:** add domain errors ([e6ddd84](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/e6ddd8444f9b2c26b044490e2b79633dcd91ef13))
+* **users:** add domain errors ([b8fc764](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/b8fc764f633dc613e9d0d9c832f390ced9dd867f))
+* **users:** add domain errors ([e2abe71](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/e2abe7129665fa9076cd696e37c4dd841298ad0a))
+* **users:** add get user by id endpoint ([6c20261](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/6c20261c7a374f1d6df8ed6f9ab797a6cef2bbce))
+
+
+### Bug Fixes
+
+* **users:** add case for `BadRequestException` ([cd0dca5](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/cd0dca5fd2b2d2d1472b23adf957faa4a58bd859))
+* **users:** add decorator for params ([83ea155](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/83ea1551d7cd71a5d68e6f3bfdbba0aab1236f99))
+
 ## [1.6.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.5.0...v1.6.0) (2023-06-04)
 
 
