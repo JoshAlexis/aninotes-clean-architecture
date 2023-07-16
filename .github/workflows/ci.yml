@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
         if: ${{ !contains(github.head_ref, 'release') }}
-      - run: yarn install
+      - run: yarn install --immutable
       - name: Run Use Cases
         run: yarn test
         if: ${{ !contains(github.head_ref, 'release') }}
