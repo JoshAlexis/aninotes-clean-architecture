@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.7.0...v1.8.0) (2023-07-23)
+
+
+### Features
+
+* add password hashing ([7fb3421](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/7fb3421a7ab800ea7b554101fed34a6779925dca))
+
 ## [1.7.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.6.0...v1.7.0) (2023-07-09)
 
 
