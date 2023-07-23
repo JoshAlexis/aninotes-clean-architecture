@@ -14,6 +14,7 @@ import { updateUserResult } from 'users/application/test/update-user-result.util
 import { UpdateUser } from 'users/application/update-user.use-case'
 import { UsersDtoEntityMapper } from 'users/application/dto/users-dto-entity.mapper'
 import { GetUserById } from 'users/application/get-user-by-id.use-case'
+import { PasswordHashingArgonService } from 'users/application/services/password-hashing-argon.service'
 
 describe('Users Use Cases', () => {
 	let createUser: CreateUser
@@ -29,6 +30,10 @@ describe('Users Use Cases', () => {
 				{
 					provide: UsersTokens.USER_REPOSITORY,
 					useClass: UserPrismaRepository
+				},
+				{
+					provide: UsersTokens.PASSWORD_HASHING_SERVICE,
+					useClass: PasswordHashingArgonService
 				},
 				CreateUser,
 				GetUserByEmail,
@@ -67,6 +72,7 @@ describe('Users Use Cases', () => {
 		expect(result.id).toBe(createUserResult.id)
 		expect(result.userName).toBe(createUserResult.userName)
 		expect(result.email).toBe(createUserResult.email)
+		expect(result.password).toBe(createUserResult.password)
 		expect(result.createdAt).toBe(dayjs(createUserResult.createdAt).format('YYYY-MM-DD HH:mm:ss'))
 		expect(result.updatedAt).toBe(dayjs(createUserResult.updatedAt).format('YYYY-MM-DD HH:mm:ss'))
 	})

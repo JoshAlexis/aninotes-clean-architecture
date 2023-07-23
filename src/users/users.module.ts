@@ -11,6 +11,7 @@ import { PutUsersController } from 'users/presentation/put-users.controller'
 import { UpdateUser } from 'users/application/update-user.use-case'
 import { UsersDtoEntityMapper } from 'users/application/dto/users-dto-entity.mapper'
 import { GetUserById } from 'users/application/get-user-by-id.use-case'
+import { PasswordHashingArgonService } from 'users/application/services/password-hashing-argon.service'
 
 @Module({
 	controllers: [GetUsersController, PostUsersController, PutUsersController],
@@ -23,6 +24,10 @@ import { GetUserById } from 'users/application/get-user-by-id.use-case'
 		{
 			provide: UsersTokens.USER_REPOSITORY,
 			useClass: UserPrismaRepository
+		},
+		{
+			provide: UsersTokens.PASSWORD_HASHING_SERVICE,
+			useClass: PasswordHashingArgonService
 		},
 		UsersEntityMapper,
 		UsersDtoEntityMapper
