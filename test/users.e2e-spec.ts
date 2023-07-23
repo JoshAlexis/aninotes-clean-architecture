@@ -1,5 +1,6 @@
 import request from 'supertest'
 import dayjs from 'dayjs'
+import * as argon2 from 'argon2'
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended'
 import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication, ValidationPipe } from '@nestjs/common'
@@ -95,6 +96,7 @@ describe('User Endpoints (e2e)', () => {
 
 		it('POST /api/v1/users', async () => {
 			prismaService.user.create.mockResolvedValue(createUserResult)
+			createUserResult.password = await argon2.hash('password')
 
 			const createUserDto: CreateUserInputDto = {
 				userName: createUserResult.userName as string,
@@ -108,6 +110,7 @@ describe('User Endpoints (e2e)', () => {
 			expect(result.body.id).toBe(createUserResult.id)
 			expect(result.body.email).toBe(createUserResult.email)
 			expect(result.body.userName).toBe(createUserResult.userName)
+			expect(result.body.password).toBe(createUserResult.password)
 			expect(result.body.updatedAt).toBe(formatDate(createUserResult.updatedAt))
 			expect(result.body.createdAt).toBe(formatDate(createUserResult.createdAt))
 		})
