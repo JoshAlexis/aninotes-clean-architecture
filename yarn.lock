@@ -1424,24 +1424,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:^4.16.1":
-  version: 4.16.2
-  resolution: "@prisma/client@npm:4.16.2"
+"@prisma/client@npm:5.0.0":
+  version: 5.0.0
+  resolution: "@prisma/client@npm:5.0.0"
   dependencies:
-    "@prisma/engines-version": 4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81
+    "@prisma/engines-version": 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 38e1356644a764946c69c8691ea4bbed0ba37739d833a435625bd5435912bed4b9bdd7c384125f3a4ab8128faf566027985c0f0840a42741c338d72e40b5d565
+  checksum: 332c2af44e880ffc9dd1223992bf6f45910094c7a3a540cbbfdda45d6caf3e82998376338abdf85e34a12f1082ae932f2385d6396c62fe4bba7ec6b84de54466
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81":
-  version: 4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81
-  resolution: "@prisma/engines-version@npm:4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81"
-  checksum: b42c6abe7c1928e546f15449e40ffa455701ef2ab1f62973628ecb4e19ff3652e34609a0d83196d1cbd0864adb44c55e082beec852b11929acf1c15fb57ca45a
+"@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584":
+  version: 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
+  resolution: "@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584"
+  checksum: 8fcbceef3b554ee7fa404bead50be5286412a097b21723272aff298b289caf2802b01b84bb85c4c9f3b592eeac114c8d6e79db083f271dc8c54f453b4a515233
   languageName: node
   linkType: hard
 
@@ -2389,7 +2389,7 @@ __metadata:
     "@nestjs/schematics": ^10.0.1
     "@nestjs/swagger": ^7.1.1
     "@nestjs/testing": ^10.1.0
-    "@prisma/client": ^4.16.1
+    "@prisma/client": 5.0.0
     "@types/express": ^4.17.17
     "@types/jest": 29.5.2
     "@types/joi": ^17.2.3
@@ -2411,7 +2411,7 @@ __metadata:
     jest: 29.6.1
     jest-mock-extended: ^3.0.2
     prettier: ^2.8.8
-    prisma: ^5.0.0
+    prisma: 5.0.0
     reflect-metadata: ^0.1.13
     rimraf: ^5.0.1
     rxjs: ^7.8.1
@@ -6710,7 +6710,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:^5.0.0":
+"prisma@npm:5.0.0":
   version: 5.0.0
   resolution: "prisma@npm:5.0.0"
   dependencies:
