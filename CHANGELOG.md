@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.8.0...v1.8.1) (2023-07-30)
+
+
+### Bug Fixes
+
+* remove `beforeExit` handler for Prisma service ([25a9688](https://github.com/JoshAlexis/aninotes-clean-architecture/commit/25a9688f21d638b656d25c0c34f517fd26a37773))
+
 ## [1.8.0](https://github.com/JoshAlexis/aninotes-clean-architecture/compare/v1.7.0...v1.8.0) (2023-07-23)
 
 
