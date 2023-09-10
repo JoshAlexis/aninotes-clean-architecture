@@ -1181,12 +1181,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/common@npm:^10.1.0":
-  version: 10.2.1
-  resolution: "@nestjs/common@npm:10.2.1"
+"@nestjs/common@npm:^10.2.4":
+  version: 10.2.4
+  resolution: "@nestjs/common@npm:10.2.4"
   dependencies:
     iterare: 1.2.1
-    tslib: 2.6.1
+    tslib: 2.6.2
     uid: 2.0.2
   peerDependencies:
     class-transformer: "*"
@@ -1198,34 +1198,34 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: 251fb8d04aaa80f432a8cd0d3fae9ee60e238967df463168d04782c26681d733268e88f107466d33aa875f67fd442d670b1b1f9dd9f9594c0092393a942a1527
+  checksum: fb52b1eef56f82463adebe2a11fe9569009c4216b3db8096f0aef91bcd4ddd34e8d07722b8506c9143ac7353f8c1a7f7fef9ff1138f4bc66d27ce98356011679
   languageName: node
   linkType: hard
 
-"@nestjs/config@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@nestjs/config@npm:3.0.0"
+"@nestjs/config@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@nestjs/config@npm:3.0.1"
   dependencies:
-    dotenv: 16.1.4
+    dotenv: 16.3.1
     dotenv-expand: 10.0.0
     lodash: 4.17.21
     uuid: 9.0.0
   peerDependencies:
     "@nestjs/common": ^8.0.0 || ^9.0.0 || ^10.0.0
     reflect-metadata: ^0.1.13
-  checksum: e886dc337cd0fa2018aff5088c5ec9f38331aaf47dbd065ff72e6429a14b213c83cb5a9782b5044c3625a89ef4d7bb426b173773b9d09140433820885731ffa0
+  checksum: 76c82dae9197b8041f98b76ec1904cd2eec3e6ffe260e5898579d85847d355732828bab09d5d98a201d1c5231adcabaaa8a0bcc28edc7190b1b94b35fe4e4954
   languageName: node
   linkType: hard
 
-"@nestjs/core@npm:^10.1.3":
-  version: 10.2.1
-  resolution: "@nestjs/core@npm:10.2.1"
+"@nestjs/core@npm:^10.2.4":
+  version: 10.2.4
+  resolution: "@nestjs/core@npm:10.2.4"
   dependencies:
     "@nuxtjs/opencollective": 0.3.2
     fast-safe-stringify: 2.1.1
     iterare: 1.2.1
     path-to-regexp: 3.2.0
-    tslib: 2.6.1
+    tslib: 2.6.2
     uid: 2.0.2
   peerDependencies:
     "@nestjs/common": ^10.0.0
@@ -1241,7 +1241,7 @@ __metadata:
       optional: true
     "@nestjs/websockets":
       optional: true
-  checksum: 24a8c28856b52e98c90c7e9159bbc151bb43b1da782e5427983ed4f589398b9e077e52c5f748e11cd3c65476bf162163883444713048ef88d43c194acb564ee1
+  checksum: eb34108e284991b84c9a31ef0f1969f8d5b6a1d2ecae04b924ee585bd1e04de29776fbce26c5242edad349d932e49a1e4c4d6ac8d893735e12eddd299d8220d4
   languageName: node
   linkType: hard
 
@@ -1293,15 +1293,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/swagger@npm:^7.1.8":
-  version: 7.1.8
-  resolution: "@nestjs/swagger@npm:7.1.8"
+"@nestjs/swagger@npm:^7.1.10":
+  version: 7.1.10
+  resolution: "@nestjs/swagger@npm:7.1.10"
   dependencies:
     "@nestjs/mapped-types": 2.0.2
     js-yaml: 4.1.0
     lodash: 4.17.21
     path-to-regexp: 3.2.0
-    swagger-ui-dist: 5.3.1
+    swagger-ui-dist: 5.4.2
   peerDependencies:
     "@fastify/static": ^6.0.0
     "@nestjs/common": ^9.0.0 || ^10.0.0
@@ -1316,7 +1316,7 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: 771d9ca2dda69cd548184a59086c7a8202a1af554dcb73357de72be9376e56572aaa003fda0ea732c54fcb7d7ea55d80d5beb64aa3d6c1877510e2c70d9d1f9b
+  checksum: 697af5bcc678f097e51f8a9dce10f1ed332ebfec405f0b261e464feb229e7a81a56875ef31d910f8033497b7f5359fd9c9893a49ce942a37c8d0b06db182d948
   languageName: node
   linkType: hard
 
@@ -1416,24 +1416,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:5.0.0":
-  version: 5.0.0
-  resolution: "@prisma/client@npm:5.0.0"
+"@prisma/client@npm:5.2.0":
+  version: 5.2.0
+  resolution: "@prisma/client@npm:5.2.0"
   dependencies:
-    "@prisma/engines-version": 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
+    "@prisma/engines-version": 5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 332c2af44e880ffc9dd1223992bf6f45910094c7a3a540cbbfdda45d6caf3e82998376338abdf85e34a12f1082ae932f2385d6396c62fe4bba7ec6b84de54466
+  checksum: ad523b7a54e31d365ecac7bdb89f5a89f62e616f5f567f5dd5060e86b122253a4652ea778c0ccbab31906e2170110e808839fbae7ee91a4fd16a8282ee86f5f1
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584":
-  version: 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
-  resolution: "@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584"
-  checksum: 8fcbceef3b554ee7fa404bead50be5286412a097b21723272aff298b289caf2802b01b84bb85c4c9f3b592eeac114c8d6e79db083f271dc8c54f453b4a515233
+"@prisma/engines-version@npm:5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f":
+  version: 5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f
+  resolution: "@prisma/engines-version@npm:5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f"
+  checksum: 7a0fde44dad7902aef0035a30073c8e3178bccbaf65f688583cf3db94e36d160fd0a52cae8b6422b670facdbd4201861e1d6e2c7371d57ef27b58a2e1c524213
   languageName: node
   linkType: hard
 
@@ -2333,14 +2333,15 @@ __metadata:
     "@commitlint/cli": ^17.7.1
     "@commitlint/config-conventional": ^17.7.0
     "@nestjs/cli": ^10.1.17
-    "@nestjs/common": ^10.1.0
-    "@nestjs/config": ^3.0.0
-    "@nestjs/core": ^10.1.3
+    "@nestjs/cli": ^10.1.10
+    "@nestjs/common": ^10.2.4
+    "@nestjs/config": ^3.0.1
+    "@nestjs/core": ^10.2.4
     "@nestjs/platform-express": ^10.2.4
     "@nestjs/schematics": ^10.0.1
-    "@nestjs/swagger": ^7.1.8
+    "@nestjs/swagger": ^7.1.10
     "@nestjs/testing": ^10.2.4
-    "@prisma/client": 5.0.0
+    "@prisma/client": 5.2.0
     "@types/express": ^4.17.17
     "@types/jest": 29.5.4
     "@types/joi": ^17.2.3
@@ -2490,14 +2491,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"argon2@npm:^0.31.0":
-  version: 0.31.0
-  resolution: "argon2@npm:0.31.0"
+"argon2@npm:^0.31.1":
+  version: 0.31.1
+  resolution: "argon2@npm:0.31.1"
   dependencies:
     "@mapbox/node-pre-gyp": ^1.0.11
     "@phc/format": ^1.0.0
     node-addon-api: ^7.0.0
-  checksum: 7e0c3eb7b028695d4b421f7efa6b5c198d54a2a378d627409b87dace6deab8ab4fb3e08add47c6c8cebce0c93038d9f3dba671641605c191aaf59d7a507d567a
+  checksum: 57c183bba19abbd72356da8723b342b11c67d6dd93a25cc63f29a3c84dcbbd7457aab889d9e80285cbd6d8f1f789cd37ff2241f7702b6dd4d57cf8ec93f942d4
   languageName: node
   linkType: hard
 
@@ -3574,10 +3575,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:16.1.4":
-  version: 16.1.4
-  resolution: "dotenv@npm:16.1.4"
-  checksum: c1b2e13df4d374a6a29e134c56c7b040ba20500677fe8b9939ea654f3b3badb9aaa0b172e40e4dfa1233a4177dbb8fb79d84cc79a50ac9c9641fe2ad98c14876
+"dotenv@npm:16.3.1":
+  version: 16.3.1
+  resolution: "dotenv@npm:16.3.1"
+  checksum: 15d75e7279018f4bafd0ee9706593dd14455ddb71b3bcba9c52574460b7ccaf67d5cf8b2c08a5af1a9da6db36c956a04a1192b101ee102a3e0cf8817bbcf3dfd
   languageName: node
   linkType: hard
 
@@ -7787,10 +7788,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swagger-ui-dist@npm:5.3.1":
-  version: 5.3.1
-  resolution: "swagger-ui-dist@npm:5.3.1"
-  checksum: babf26f3a40a932db22248a620dbb0c5c68721c4165b173537a949c6ec3df3a89982db484651e1f5fe31f3cdb1037eeef13fb6b746efbb72902d7410291070c8
+"swagger-ui-dist@npm:5.4.2":
+  version: 5.4.2
+  resolution: "swagger-ui-dist@npm:5.4.2"
+  checksum: eb80a699474b247800f7ce2594ecf75a3c92ee3da752d890fe6be7f358628f08b353ab403151826cb4a8010c055bccc1ccd8b6fe5c3673a9b1b126e7e6da599d
   languageName: node
   linkType: hard
 
@@ -8101,13 +8102,6 @@ __metadata:
     minimist: ^1.2.6
     strip-bom: ^3.0.0
   checksum: 28c5f7bbbcabc9dabd4117e8fdc61483f6872a1c6b02a4b1c4d68c5b79d06896c3cc9547610c4c3ba64658531caa2de13ead1ea1bf321c7b53e969c4752b98c7
-  languageName: node
-  linkType: hard
-
-"tslib@npm:2.6.1":
-  version: 2.6.1
-  resolution: "tslib@npm:2.6.1"
-  checksum: b0d176d176487905b66ae4d5856647df50e37beea7571c53b8d10ba9222c074b81f1410fb91da13debaf2cbc970663609068bdebafa844ea9d69b146527c38fe
   languageName: node
   linkType: hard
 
